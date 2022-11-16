@@ -6,14 +6,14 @@ import java.util.List;
 @NotThreadSafe
 public class _Account {
 
-  public Integer makerCommission;
-  public Integer takerCommission;
-  public Integer buyerCommission;
-  public Integer sellerCommission;
-  public Boolean canTrade;
-  public Boolean canWithdraw;
-  public Boolean canDeposit;
-  public Long updateTime;
+  public int makerCommission;
+  public int takerCommission;
+  public int buyerCommission;
+  public int sellerCommission;
+  public boolean canTrade;
+  public boolean canWithdraw;
+  public boolean canDeposit;
+  public long updateTime;
   public String accountType;
   public List<_AccountBalance> balances;
   public List<String> permissions;
