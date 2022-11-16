@@ -13,21 +13,21 @@ public class KlineEvent extends WebSocketEventData {
   @NotThreadSafe
   public static class Candle {
 
-    public Long t; // Kline start time
-    public Long T; // Kline close time
+    public long t; // Kline start time
+    public long T; // Kline close time
     public String s; // Symbol
     public String i; // Interval
-    public Long f; // First trade ID
-    public Long L; // Last trade ID
-    public Double o; // Open price
-    public Double c; // Close price
-    public Double h; // High price
-    public Double l; // Low price
-    public Double v; // Base asset volume
-    public Integer n; // Number of trades
-    public Boolean x; // Is this kline closed?
-    public Double q; // Quote asset volume
-    public Double V; // Taker buy base asset volume
-    public Double Q; // Taker buy quote asset volume
+    public long f; // First trade ID
+    public long L; // Last trade ID
+    public double o; // Open price
+    public double c; // Close price
+    public double h; // High price
+    public double l; // Low price
+    public double v; // Base asset volume
+    public int n; // Number of trades
+    public boolean x; // Is this kline closed?
+    public double q; // Quote asset volume
+    public double V; // Taker buy base asset volume
+    public double Q; // Taker buy quote asset volume
   }
 }

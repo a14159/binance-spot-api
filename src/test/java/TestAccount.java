@@ -1,6 +1,5 @@
 import io.contek.invoker.binancespot.api.ApiFactory;
 import io.contek.invoker.binancespot.api.common._AccountBalance;
-import io.contek.invoker.binancespot.api.rest.market.MarketRestApi;
 import io.contek.invoker.binancespot.api.rest.user.GetAccount;
 import io.contek.invoker.binancespot.api.rest.user.UserRestApi;
 import io.contek.invoker.security.ApiKey;

@@ -10,5 +10,5 @@ public final class WebSocketCommand extends AnyWebSocketMessage {
 
   public String method;
   public List<String> params;
-  public Integer id;
+  public int id;
 }

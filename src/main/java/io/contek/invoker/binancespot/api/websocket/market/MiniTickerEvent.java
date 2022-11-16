@@ -8,10 +8,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 public class MiniTickerEvent extends WebSocketEventData {
 
   public String s; // Symbol
-  public Double c; // Close price
-  public Double o; // Open price
-  public Double h; // High price
-  public Double l; // Low price
-  public Double v; // Total traded base asset volume
-  public Double q; // Total traded quote asset volume
+  public double c; // Close price
+  public double o; // Open price
+  public double h; // High price
+  public double l; // Low price
+  public double v; // Total traded base asset volume
+  public double q; // Total traded quote asset volume
 }

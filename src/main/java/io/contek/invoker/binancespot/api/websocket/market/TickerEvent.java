@@ -8,19 +8,19 @@ import javax.annotation.concurrent.NotThreadSafe;
 public class TickerEvent extends WebSocketEventData {
 
   public String s; // Symbol
-  public Double p; // Price change
-  public Double P; // Price change percent
-  public Double w; // Weighted average price
-  public Double c; // Last price
-  public Double Q; // Last quantity
-  public Double o; // Open price
-  public Double h; // High price
-  public Double l; // Low price
-  public Double v; // Total traded base asset volume
-  public Double q; // Total traded quote asset volume
-  public Long O; // Statistics open time
-  public Long C; // Statistics close time
-  public Long F; // First trade ID
-  public Long L; // Last trade Id
-  public Integer n; // Total number of trades
+  public double p; // Price change
+  public double P; // Price change percent
+  public double w; // Weighted average price
+  public double c; // Last price
+  public double Q; // Last quantity
+  public double o; // Open price
+  public double h; // High price
+  public double l; // Low price
+  public double v; // Total traded base asset volume
+  public double q; // Total traded quote asset volume
+  public long O; // Statistics open time
+  public long C; // Statistics close time
+  public long F; // First trade ID
+  public long L; // Last trade Id
+  public int n; // Total number of trades
 }

@@ -8,5 +8,5 @@ import javax.annotation.concurrent.NotThreadSafe;
 public abstract class WebSocketEventData extends AnyWebSocketMessage {
 
   public String e;
-  public Long E; // Event time
+  public long E; // Event time
 }
