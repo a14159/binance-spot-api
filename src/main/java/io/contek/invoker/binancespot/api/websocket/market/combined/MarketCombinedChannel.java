@@ -84,7 +84,7 @@ abstract class MarketCombinedChannel<
       if (command == null) {
         return null;
       }
-      if (confirmation.id == null || !confirmation.id.equals(command.id)) {
+      if (confirmation.id != command.id) {
         return null;
       }
       reset();
