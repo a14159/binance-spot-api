@@ -32,6 +32,14 @@ public final class UserRestApi {
     return new GetMarginAccount(actor, context);
   }
 
+  public GetMarginAccountSummary getMarginAccountSummary() {
+    return new GetMarginAccountSummary(actor, context);
+  }
+
+  public GetTradeFee getTradeFee() {
+    return new GetTradeFee(actor, context);
+  }
+
   public GetCrossCollateralWallet getCrossCollateralWallet() {
     return new GetCrossCollateralWallet(actor, context);
   }

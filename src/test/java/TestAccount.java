@@ -2,10 +2,8 @@ import io.contek.invoker.binancespot.api.ApiFactory;
 import io.contek.invoker.binancespot.api.common._AccountBalance;
 import io.contek.invoker.binancespot.api.common._CrossCollateral;
 import io.contek.invoker.binancespot.api.common._MarginAsset;
-import io.contek.invoker.binancespot.api.rest.user.GetAccount;
-import io.contek.invoker.binancespot.api.rest.user.GetCrossCollateralWallet;
-import io.contek.invoker.binancespot.api.rest.user.GetMarginAccount;
-import io.contek.invoker.binancespot.api.rest.user.UserRestApi;
+import io.contek.invoker.binancespot.api.common._TradeFees;
+import io.contek.invoker.binancespot.api.rest.user.*;
 import io.contek.invoker.security.ApiKey;
 
 import java.math.BigDecimal;
@@ -29,6 +27,28 @@ public class TestAccount {
                 System.out.println("Locked: " + b.locked);
             }
         }
+
+        System.out.println();
+        GetTradeFee.Response tradeFee = api.getTradeFee().setSymbol("AAVEETH").submit();
+        System.out.println("Random maker fees: " + tradeFee.get(0).makerCommission);
+        System.out.println("Random taker fees: " + tradeFee.get(0).takerCommission);
+
+        System.out.println();
+        GetTradeFee.Response tradeFees = api.getTradeFee().submit();
+        int cnt = 0;
+        for (_TradeFees fees : tradeFees) {
+            if (cnt++ > 5)
+                break;
+            System.out.println();
+            System.out.println("Coin: " + fees.symbol);
+            System.out.println("Maker fees: " + fees.makerCommission);
+            System.out.println("Taker fees: " + fees.takerCommission);
+        }
+
+//        System.out.println();
+//        GetMarginAccountSummary.Response marginSummary = api.getMarginAccountSummary().submit();
+//        System.out.println("Margin account - account status: " + marginSummary.accountStatus);
+//        System.out.println("Margin account - total equity: " + marginSummary.accountEquity);
 
         System.out.println();
         GetMarginAccount.Response marginAccount = api.getMarginAccount().submit();
