@@ -18,7 +18,7 @@ import static io.contek.invoker.commons.rest.RestMethod.GET;
 public final class GetMarginAccountSummary extends UserRestRequest<Response> {
 
   private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(10));
+      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(1));
 
   GetMarginAccountSummary(IActor actor, RestContext context) {
     super(actor, context);
