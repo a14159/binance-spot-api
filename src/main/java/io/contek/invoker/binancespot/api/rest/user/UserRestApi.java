@@ -32,6 +32,10 @@ public final class UserRestApi {
     return new GetMarginAccount(actor, context);
   }
 
+  public GetCrossCollateralWallet getCrossCollateralWallet() {
+    return new GetCrossCollateralWallet(actor, context);
+  }
+
   public GetAllOrders getAllOrders() {
     return new GetAllOrders(actor, context);
   }

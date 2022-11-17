@@ -1,7 +1,9 @@
 import io.contek.invoker.binancespot.api.ApiFactory;
 import io.contek.invoker.binancespot.api.common._AccountBalance;
+import io.contek.invoker.binancespot.api.common._CrossCollateral;
 import io.contek.invoker.binancespot.api.common._MarginAsset;
 import io.contek.invoker.binancespot.api.rest.user.GetAccount;
+import io.contek.invoker.binancespot.api.rest.user.GetCrossCollateralWallet;
 import io.contek.invoker.binancespot.api.rest.user.GetMarginAccount;
 import io.contek.invoker.binancespot.api.rest.user.UserRestApi;
 import io.contek.invoker.security.ApiKey;
@@ -37,6 +39,18 @@ public class TestAccount {
                 System.out.println();
                 System.out.println("Coin: " + asset.asset);
                 System.out.println("Net qty: " + asset.netAsset);
+            }
+        }
+
+        System.out.println();
+        GetCrossCollateralWallet.Response crossWallet = api.getCrossCollateralWallet().submit();
+        System.out.println("Cross wallet - asset: " + crossWallet.asset);
+        System.out.println("Cross wallet - total collateral: " + crossWallet.totalCrossCollateral);
+        for (_CrossCollateral asset : crossWallet.crossCollaterals) {
+            if (asset.loanAmount.compareTo(BigDecimal.ZERO) > 0) {
+                System.out.println();
+                System.out.println("Loan coin: " + asset.loanCoin);
+                System.out.println("Loan amount: " + asset.loanAmount);
             }
         }
     }
