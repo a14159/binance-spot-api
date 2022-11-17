@@ -1,7 +1,6 @@
 package io.contek.invoker.binancespot.api.rest.user;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.common._BookTicker;
 import io.contek.invoker.binancespot.api.common._BorrowRate;
 import io.contek.invoker.binancespot.api.rest.user.GetBorrowRate.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -24,7 +23,7 @@ public final class GetBorrowRate extends UserRestRequest<Response> {
   private static final ImmutableList<TypedPermitRequest> ALL_SYMBOLS_REQUIRED_QUOTA =
       ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(5));
 
-  private String symbol;
+  private String coin;
 
   GetBorrowRate(IActor actor, RestContext context) {
     super(actor, context);
@@ -35,8 +34,8 @@ public final class GetBorrowRate extends UserRestRequest<Response> {
     return GET;
   }
 
-  public GetBorrowRate setSymbol(@Nullable String symbol) {
-    this.symbol = symbol;
+  public GetBorrowRate setCoin(@Nullable String coin) {
+    this.coin = coin;
     return this;
   }
 
@@ -54,8 +53,8 @@ public final class GetBorrowRate extends UserRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    if (symbol != null) {
-      builder.add("symbol", symbol);
+    if (coin != null) {
+      builder.add("coin", coin);
     }
 
     builder.add("timestamp", getMillis());
@@ -65,7 +64,7 @@ public final class GetBorrowRate extends UserRestRequest<Response> {
 
   @Override
   protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
-    if (symbol != null) {
+    if (coin != null) {
       return ONE_REST_REQUEST;
     }
     return ALL_SYMBOLS_REQUIRED_QUOTA;

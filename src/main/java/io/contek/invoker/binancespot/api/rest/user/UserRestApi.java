@@ -44,6 +44,10 @@ public final class UserRestApi {
     return new GetCrossCollateralWallet(actor, context);
   }
 
+  public GetBorrowRate getBorrowRate() {
+    return new GetBorrowRate(actor, context);
+  }
+
   public GetAllOrders getAllOrders() {
     return new GetAllOrders(actor, context);
   }
