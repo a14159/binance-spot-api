@@ -1,6 +1,8 @@
 import io.contek.invoker.binancespot.api.ApiFactory;
 import io.contek.invoker.binancespot.api.common._AccountBalance;
+import io.contek.invoker.binancespot.api.common._MarginAsset;
 import io.contek.invoker.binancespot.api.rest.user.GetAccount;
+import io.contek.invoker.binancespot.api.rest.user.GetMarginAccount;
 import io.contek.invoker.binancespot.api.rest.user.UserRestApi;
 import io.contek.invoker.security.ApiKey;
 
@@ -23,6 +25,18 @@ public class TestAccount {
                 System.out.println("Coin: " + b.asset);
                 System.out.println("Free: " + b.free);
                 System.out.println("Locked: " + b.locked);
+            }
+        }
+
+        System.out.println();
+        GetMarginAccount.Response marginAccount = api.getMarginAccount().submit();
+        System.out.println("Margin account - margin level: " + marginAccount.marginLevel);
+        System.out.println("Margin account - total net assets: " + marginAccount.totalNetAssetOfBtc);
+        for (_MarginAsset asset : marginAccount.userAssets) {
+            if (asset.netAsset.compareTo(BigDecimal.ZERO) > 0) {
+                System.out.println();
+                System.out.println("Coin: " + asset.asset);
+                System.out.println("Net qty: " + asset.netAsset);
             }
         }
     }
