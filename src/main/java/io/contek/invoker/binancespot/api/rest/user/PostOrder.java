@@ -12,6 +12,8 @@ import io.contek.invoker.commons.rest.RestParams;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import java.math.BigDecimal;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_ORDER_REQUEST;
 import static io.contek.invoker.commons.rest.RestMethod.POST;
@@ -23,12 +25,12 @@ public final class PostOrder extends UserRestRequest<Response> {
   private String side;
   private String type;
   private String timeInForce;
-  private Double quantity;
-  private Double quoteOrderQty;
-  private Double price;
+  private BigDecimal quantity;
+  private BigDecimal quoteOrderQty;
+  private BigDecimal price;
   private String newClientOrderId;
-  private Double stopPrice;
-  private Double icebergQty;
+  private BigDecimal stopPrice;
+  private BigDecimal icebergQty;
   private String newOrderRespType;
 
   PostOrder(IActor actor, RestContext context) {
@@ -55,17 +57,17 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setQuantity(@Nullable Double quantity) {
+  public PostOrder setQuantity(@Nullable BigDecimal quantity) {
     this.quantity = quantity;
     return this;
   }
 
-  public PostOrder setQuoteOrderQty(@Nullable Double quoteOrderQty) {
+  public PostOrder setQuoteOrderQty(@Nullable BigDecimal quoteOrderQty) {
     this.quoteOrderQty = quoteOrderQty;
     return this;
   }
 
-  public PostOrder setPrice(@Nullable Double price) {
+  public PostOrder setPrice(@Nullable BigDecimal price) {
     this.price = price;
     return this;
   }
@@ -75,12 +77,12 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setStopPrice(@Nullable Double stopPrice) {
+  public PostOrder setStopPrice(@Nullable BigDecimal stopPrice) {
     this.stopPrice = stopPrice;
     return this;
   }
 
-  public PostOrder setIcebergQty(@Nullable Double icebergQty) {
+  public PostOrder setIcebergQty(@Nullable BigDecimal icebergQty) {
     this.icebergQty = icebergQty;
     return this;
   }
@@ -119,15 +121,15 @@ public final class PostOrder extends UserRestRequest<Response> {
     builder.add("type", type);
 
     if (quantity != null) {
-      builder.add("quantity", quantity);
+      builder.add("quantity", quantity.toPlainString());
     }
 
     if (quoteOrderQty != null) {
-      builder.add("quoteOrderQty", quoteOrderQty);
+      builder.add("quoteOrderQty", quoteOrderQty.toPlainString());
     }
 
     if (price != null) {
-      builder.add("price", price);
+      builder.add("price", price.toPlainString());
     }
 
     if (timeInForce != null) {
@@ -139,11 +141,11 @@ public final class PostOrder extends UserRestRequest<Response> {
     }
 
     if (stopPrice != null) {
-      builder.add("stopPrice", stopPrice);
+      builder.add("stopPrice", stopPrice.toPlainString());
     }
 
     if (icebergQty != null) {
-      builder.add("icebergQty", icebergQty);
+      builder.add("icebergQty", icebergQty.toPlainString());
     }
 
     if (newOrderRespType != null) {
