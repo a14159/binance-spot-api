@@ -64,6 +64,10 @@ public final class UserRestApi {
     return new PostOrder(actor, context);
   }
 
+  public GetAccountTradeList getAccountTradeList() {
+    return new GetAccountTradeList(actor, context);
+  }
+
   public PostListenKey postListenKey() {
     return new PostListenKey(actor, context);
   }
