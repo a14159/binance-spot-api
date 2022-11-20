@@ -25,4 +25,9 @@ public class _Order implements Cloneable {
   public boolean isWorking;
   public String origClientOrderId;
   public BigDecimal origQuoteOrderQty;
+
+  @Override
+  protected Object clone() throws CloneNotSupportedException {
+    return super.clone();
+  }
 }
