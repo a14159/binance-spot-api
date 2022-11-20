@@ -4,7 +4,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import java.math.BigDecimal;
 
 @NotThreadSafe
-public class _Order {
+public class _Order implements Cloneable {
 
   public String symbol;
   public long orderId;
