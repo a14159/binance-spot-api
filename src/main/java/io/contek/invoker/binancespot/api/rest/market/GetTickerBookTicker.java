@@ -10,7 +10,6 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import java.util.ArrayList;
 
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
@@ -62,5 +61,5 @@ public final class GetTickerBookTicker extends MarketRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response extends ArrayList<_BookTicker> {}
+  public static final class Response extends _BookTicker {}
 }
