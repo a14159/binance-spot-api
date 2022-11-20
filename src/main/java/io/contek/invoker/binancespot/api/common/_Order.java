@@ -24,5 +24,5 @@ public class _Order {
   public long updateTime;
   public boolean isWorking;
   public String origClientOrderId;
-  public String origQuoteOrderQty;
+  public BigDecimal origQuoteOrderQty;
 }
