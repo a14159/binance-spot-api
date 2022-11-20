@@ -27,7 +27,7 @@ public class _Order implements Cloneable {
   public BigDecimal origQuoteOrderQty;
 
   @Override
-  protected Object clone() throws CloneNotSupportedException {
+  public Object clone() throws CloneNotSupportedException {
     return super.clone();
   }
 }
