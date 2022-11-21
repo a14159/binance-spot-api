@@ -11,6 +11,8 @@ import io.contek.invoker.commons.rest.RestParams;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.GET;
 
@@ -22,6 +24,8 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
 
   private String symbol;
   private long orderId;
+  private long startTime;
+  private long endTime;
 
   GetAccountTradeList(IActor actor, RestContext context) {
     super(actor, context);
@@ -34,6 +38,16 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
 
   public GetAccountTradeList setOrderId(long orderId) {
     this.orderId = orderId;
+    return this;
+  }
+
+  public GetAccountTradeList setStartTime(long startTime) {
+    this.startTime = startTime;
+    return this;
+  }
+
+  public GetAccountTradeList setEndTime(long endTime) {
+    this.endTime = endTime;
     return this;
   }
 
@@ -56,8 +70,16 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
+    checkNotNull(symbol);
     builder.add("symbol", symbol);
-    builder.add("orderId", orderId);
+
+    checkArgument(orderId != 0 || (startTime != 0 && endTime != 0));
+    if (orderId != 0)
+      builder.add("orderId", orderId);
+    if (startTime != 0)
+      builder.add("startTime", startTime);
+    if (endTime != 0)
+      builder.add("endTime", endTime);
 
     builder.add("timestamp", getMillis());
 
