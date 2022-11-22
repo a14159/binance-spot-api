@@ -28,6 +28,10 @@ public final class UserRestApi {
     return new GetAccount(actor, context);
   }
 
+  public GetUserAssets getUserAssets() {
+    return new GetUserAssets(actor, context);
+  }
+
   public GetMarginAccount getMarginAccount() {
     return new GetMarginAccount(actor, context);
   }

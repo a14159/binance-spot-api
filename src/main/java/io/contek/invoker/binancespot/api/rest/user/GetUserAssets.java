@@ -1,8 +1,8 @@
 package io.contek.invoker.binancespot.api.rest.user;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.common._TradeFees;
-import io.contek.invoker.binancespot.api.rest.user.GetTradeFee.Response;
+import io.contek.invoker.binancespot.api.common._SpotAsset;
+import io.contek.invoker.binancespot.api.rest.user.GetUserAssets.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
@@ -10,32 +10,31 @@ import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
-
 import java.util.ArrayList;
 
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
-import static io.contek.invoker.commons.rest.RestMethod.GET;
+import static io.contek.invoker.commons.rest.RestMethod.POST;
 
 @NotThreadSafe
-public final class GetTradeFee extends UserRestRequest<Response> {
+public final class GetUserAssets extends UserRestRequest<Response> {
 
   private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(1));
+      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(5));
 
-  private String symbol;
+  private String asset;
 
-  GetTradeFee(IActor actor, RestContext context) {
+  GetUserAssets(IActor actor, RestContext context) {
     super(actor, context);
   }
 
-  public GetTradeFee setSymbol(String symbol) {
-    this.symbol = symbol;
+  public GetUserAssets setAsset(String asset) {
+    this.asset = asset;
     return this;
   }
 
   @Override
   protected RestMethod getMethod() {
-    return GET;
+    return POST;
   }
 
   @Override
@@ -45,15 +44,15 @@ public final class GetTradeFee extends UserRestRequest<Response> {
 
   @Override
   protected String getEndpointPath() {
-    return "/sapi/v1/asset/tradeFee";
+    return "/sapi/v3/asset/getUserAsset";
   }
 
   @Override
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    if (symbol != null)
-      builder.add("symbol", symbol);
+    if (asset != null)
+      builder.add("asset", asset);
 
     builder.add("timestamp", getMillis());
 
@@ -66,5 +65,5 @@ public final class GetTradeFee extends UserRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response extends ArrayList<_TradeFees> {}
+  public static final class Response extends ArrayList<_SpotAsset> {}
 }
