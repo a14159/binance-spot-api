@@ -8,7 +8,6 @@ import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.annotation.concurrent.ThreadSafe;
 import java.math.BigDecimal;
-import java.util.List;
 
 @ThreadSafe
 public final class BalanceUpdateChannel extends UserWebSocketChannel<BalanceUpdateChannel.Data> {
@@ -28,22 +27,15 @@ public final class BalanceUpdateChannel extends UserWebSocketChannel<BalanceUpda
         private static final Id INSTANCE = new Id();
 
         private Id() {
-            super(UserEventTypeKeys._ACCOUNT_UPDATE);
+            super(UserEventTypeKeys._BALANCE_UPDATE);
         }
     }
 
     @NotThreadSafe
     public static final class Data extends WebSocketEventData {
 
-        public long u; // Time of last account update
-        public List<BalanceUpdate> B; // balance updates
-    }
-
-    @NotThreadSafe
-    public static final class BalanceUpdate {
-
-        public String a; // asset
-        public BigDecimal f; // free
-        public BigDecimal l; // Locked
+        public String a; // Asset
+        public BigDecimal d; // Balance Delta
+        public long T; // Clear Time
     }
 }

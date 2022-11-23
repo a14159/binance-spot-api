@@ -16,6 +16,11 @@ public final class UserWebSocketApi extends BaseWebSocketApi {
 
   private final WebSocketContext context;
 
+  public AccountUpdateChannel accountUpdateChannel;
+  public BalanceUpdateChannel balanceUpdateChannel;
+  public OrderUpdateChannel orderUpdateChannel;
+
+
   public UserWebSocketApi(IActor actor, WebSocketContext context, UserRestApi userRestApi) {
     super(
         actor,
@@ -23,6 +28,30 @@ public final class UserWebSocketApi extends BaseWebSocketApi {
         IWebSocketAuthenticator.noOp(),
         new UserWebSocketLiveKeeper(userRestApi, actor.getClock()));
     this.context = context;
+  }
+
+  public AccountUpdateChannel getAccountUpdateChannel() {
+    if (accountUpdateChannel == null) {
+      accountUpdateChannel = new AccountUpdateChannel();
+      attach(accountUpdateChannel);
+    }
+    return accountUpdateChannel;
+  }
+
+  public BalanceUpdateChannel getBalanceUpdateChannel() {
+    if (balanceUpdateChannel == null) {
+      balanceUpdateChannel = new BalanceUpdateChannel();
+      attach(balanceUpdateChannel);
+    }
+    return balanceUpdateChannel;
+  }
+
+  public OrderUpdateChannel getOrderUpdateChannel() {
+    if (orderUpdateChannel == null) {
+      orderUpdateChannel = new OrderUpdateChannel();
+      attach(orderUpdateChannel);
+    }
+    return orderUpdateChannel;
   }
 
   @Override
