@@ -68,6 +68,10 @@ public final class UserRestApi {
     return new PostOrder(actor, context);
   }
 
+  public Convert convert() {
+    return new Convert(actor, context);
+  }
+
   public GetAccountTradeList getAccountTradeList() {
     return new GetAccountTradeList(actor, context);
   }
