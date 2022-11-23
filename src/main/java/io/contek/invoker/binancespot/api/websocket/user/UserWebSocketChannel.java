@@ -20,6 +20,10 @@ public abstract class UserWebSocketChannel<Message extends WebSocketEventData>
     super(id);
   }
 
+  protected Message getData(Message message) {
+    return message;
+  }
+
   // We do no action during the subscription phase since the data will be pushed to our end when
   // opening the web socket connection.
   @Override
