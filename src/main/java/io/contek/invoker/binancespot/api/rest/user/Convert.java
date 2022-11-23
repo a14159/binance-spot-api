@@ -1,6 +1,7 @@
 package io.contek.invoker.binancespot.api.rest.user;
 
 import com.google.common.collect.ImmutableList;
+import io.contek.invoker.binancespot.api.common._ConvertResponse;
 import io.contek.invoker.binancespot.api.common._Order;
 import io.contek.invoker.binancespot.api.rest.user.Convert.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -91,5 +92,5 @@ public final class Convert extends UserRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response extends _Order {}
+  public static final class Response extends _ConvertResponse {}
 }
