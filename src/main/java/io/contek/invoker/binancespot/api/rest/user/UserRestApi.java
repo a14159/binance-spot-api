@@ -76,11 +76,19 @@ public final class UserRestApi {
     return new GetAccountTradeList(actor, context);
   }
 
-  public PostListenKey postListenKey() {
-    return new PostListenKey(actor, context);
+  public PostSpotListenKey postSpotListenKey() {
+    return new PostSpotListenKey(actor, context);
   }
 
-  public PutListenKey putListenKey() {
-    return new PutListenKey(actor, context);
+  public PutSpotListenKey putSpotListenKey() {
+    return new PutSpotListenKey(actor, context);
+  }
+
+  public PostMarginListenKey postMarginListenKey() {
+    return new PostMarginListenKey(actor, context);
+  }
+
+  public PutMarginListenKey putMarginListenKey() {
+    return new PutMarginListenKey(actor, context);
   }
 }

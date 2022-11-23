@@ -1,7 +1,7 @@
 package io.contek.invoker.binancespot.api.rest.user;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.rest.user.PutListenKey.Response;
+import io.contek.invoker.binancespot.api.rest.user.PutSpotListenKey.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
@@ -15,15 +15,15 @@ import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_R
 import static io.contek.invoker.commons.rest.RestMethod.PUT;
 
 @NotThreadSafe
-public final class PutListenKey extends UserRestRequest<Response> {
+public final class PutSpotListenKey extends UserRestRequest<Response> {
 
   private String listenKey;
 
-  PutListenKey(IActor actor, RestContext context) {
+  PutSpotListenKey(IActor actor, RestContext context) {
     super(actor, context);
   }
 
-  public PutListenKey setListenKey(String listenKey) {
+  public PutSpotListenKey setListenKey(String listenKey) {
     this.listenKey = listenKey;
     return this;
   }
