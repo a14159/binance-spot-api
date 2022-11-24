@@ -12,7 +12,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_WEB_SOCKET_CONNECTION;
 
 @ThreadSafe
-public final class UserWebSocketApi extends BaseWebSocketApi {
+public final class MarginUserWebSocketApi extends BaseWebSocketApi {
 
   private final WebSocketContext context;
 
@@ -21,12 +21,12 @@ public final class UserWebSocketApi extends BaseWebSocketApi {
   public OrderUpdateChannel orderUpdateChannel;
 
 
-  public UserWebSocketApi(IActor actor, WebSocketContext context, UserRestApi userRestApi) {
+  public MarginUserWebSocketApi(IActor actor, WebSocketContext context, UserRestApi userRestApi) {
     super(
         actor,
         UserWebSocketParser.getInstance(),
         IWebSocketAuthenticator.noOp(),
-        new UserWebSocketLiveKeeper(userRestApi, actor.getClock()));
+        new MarginUserWebSocketLiveKeeper(userRestApi, actor.getClock()));
     this.context = context;
   }
 
@@ -56,7 +56,7 @@ public final class UserWebSocketApi extends BaseWebSocketApi {
 
   @Override
   protected WebSocketCall createCall(ICredential credential) {
-    UserWebSocketLiveKeeper liveKeeper = (UserWebSocketLiveKeeper) getLiveKeeper();
+    MarginUserWebSocketLiveKeeper liveKeeper = (MarginUserWebSocketLiveKeeper) getLiveKeeper();
     String listenKey = liveKeeper.init();
     return WebSocketCall.fromUrl(context.getBaseUrl() + "/ws/" + listenKey);
   }

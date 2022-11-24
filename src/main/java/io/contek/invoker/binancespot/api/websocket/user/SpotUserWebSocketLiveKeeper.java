@@ -19,9 +19,9 @@ import java.util.concurrent.atomic.AtomicReference;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Immutable
-final class UserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
+final class SpotUserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
 
-  private static final Logger log = getLogger(UserWebSocketLiveKeeper.class);
+  private static final Logger log = getLogger(SpotUserWebSocketLiveKeeper.class);
 
   private static final Duration REFRESH_PERIOD = Duration.ofMinutes(10);
 
@@ -30,7 +30,7 @@ final class UserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
 
   private final AtomicReference<State> stateHolder = new AtomicReference<>(null);
 
-  UserWebSocketLiveKeeper(UserRestApi userRestApi, Clock clock) {
+  SpotUserWebSocketLiveKeeper(UserRestApi userRestApi, Clock clock) {
     this.userRestApi = userRestApi;
     this.clock = clock;
   }

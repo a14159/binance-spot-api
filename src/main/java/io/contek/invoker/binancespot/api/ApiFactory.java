@@ -6,7 +6,8 @@ import io.contek.invoker.binancespot.api.rest.user.UserRestApi;
 import io.contek.invoker.binancespot.api.websocket.market.IMarketWebSocketApi;
 import io.contek.invoker.binancespot.api.websocket.market.combined.MarketCombinedWebSocketApi;
 import io.contek.invoker.binancespot.api.websocket.market.direct.MarketDirectWebSocketApi;
-import io.contek.invoker.binancespot.api.websocket.user.UserWebSocketApi;
+import io.contek.invoker.binancespot.api.websocket.user.MarginUserWebSocketApi;
+import io.contek.invoker.binancespot.api.websocket.user.SpotUserWebSocketApi;
 import io.contek.invoker.commons.ApiContext;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.IActorFactory;
@@ -126,12 +127,20 @@ public final class ApiFactory {
           : new MarketCombinedWebSocketApi(actor, wsContext);
     }
 
-    public UserWebSocketApi user(ApiKey apiKey) {
+    public SpotUserWebSocketApi userSpot(ApiKey apiKey) {
       WebSocketContext wsContext = context.getWebSocketContext();
       IActor actor = actorFactory.create(apiKey, wsContext);
       RestContext restContext = context.getRestContext();
-      return new UserWebSocketApi(
+      return new SpotUserWebSocketApi(
           actor, context.getWebSocketContext(), new UserRestApi(actor, restContext));
+    }
+
+    public MarginUserWebSocketApi userMargin(ApiKey apiKey) {
+      WebSocketContext wsContext = context.getWebSocketContext();
+      IActor actor = actorFactory.create(apiKey, wsContext);
+      RestContext restContext = context.getRestContext();
+      return new MarginUserWebSocketApi(
+              actor, context.getWebSocketContext(), new UserRestApi(actor, restContext));
     }
   }
 
