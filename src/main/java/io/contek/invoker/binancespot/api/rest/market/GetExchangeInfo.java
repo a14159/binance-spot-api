@@ -1,6 +1,7 @@
 package io.contek.invoker.binancespot.api.rest.market;
 
 import com.google.common.collect.ImmutableList;
+import io.contek.invoker.binancespot.api.common._ExchangeInfo;
 import io.contek.invoker.binancespot.api.rest.market.GetExchangeInfo.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
@@ -44,27 +45,5 @@ public final class GetExchangeInfo extends MarketRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response {
-
-    public List<MarketDetails> symbols;
-  }
-
-  @NotThreadSafe
-  public static final class MarketDetails {
-
-    public String symbol;
-    public String status;
-    public String baseAsset;
-    public int baseAssetPrecision;
-    public String quoteAsset;
-    public int quotePrecision;
-    public int quoteAssetPrecision;
-    public List<String> orderTypes;
-    public boolean icebergAllowed;
-    public boolean ocoAllowed;
-    public boolean isSpotTradingAllowed;
-    public boolean isMarginTradingAllowed;
-    public List<String> permissions;
-    public List<Map<String, Object>> filters;
-  }
+  public static final class Response extends _ExchangeInfo {};
 }
