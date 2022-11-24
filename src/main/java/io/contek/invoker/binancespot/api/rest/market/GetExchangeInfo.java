@@ -55,15 +55,15 @@ public final class GetExchangeInfo extends MarketRestRequest<Response> {
     public String symbol;
     public String status;
     public String baseAsset;
-    public Integer baseAssetPrecision;
+    public int baseAssetPrecision;
     public String quoteAsset;
-    public Integer quotePrecision;
-    public Integer quoteAssetPrecision;
+    public int quotePrecision;
+    public int quoteAssetPrecision;
     public List<String> orderTypes;
-    public Boolean icebergAllowed;
-    public Boolean ocoAllowed;
-    public Boolean isSpotTradingAllowed;
-    public Boolean isMarginTradingAllowed;
+    public boolean icebergAllowed;
+    public boolean ocoAllowed;
+    public boolean isSpotTradingAllowed;
+    public boolean isMarginTradingAllowed;
     public List<String> permissions;
     public List<Map<String, Object>> filters;
   }
