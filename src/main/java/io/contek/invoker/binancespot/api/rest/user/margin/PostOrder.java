@@ -1,7 +1,8 @@
 package io.contek.invoker.binancespot.api.rest.user.margin;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.common._OrderAck;
+import io.contek.invoker.binancespot.api.common._Order;
+import io.contek.invoker.binancespot.api.common._OrderResult;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.margin.PostOrder.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -143,7 +144,7 @@ public final class PostOrder extends UserRestRequest<Response> {
       builder.add("icebergQty", icebergQty.toPlainString());
     }
 
-    builder.add("newOrderRespType", "ACK");
+    builder.add("newOrderRespType", "RESULT");
 
     builder.add("timestamp", getMillis());
 
@@ -156,5 +157,5 @@ public final class PostOrder extends UserRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response extends _OrderAck {}
+  public static final class Response extends _OrderResult {}
 }
