@@ -6,6 +6,7 @@ import io.contek.invoker.commons.websocket.ISubscribingConsumer;
 import io.contek.invoker.commons.websocket.SubscriptionState;
 
 public class TestMarketWS {
+
     public static void main(String[] args) {
         ISubscribingConsumer<TradeEvent> consumer = new ISubscribingConsumer<TradeEvent>() {
             @Override
@@ -24,6 +25,6 @@ public class TestMarketWS {
             }
         };
         IMarketWebSocketApi api = ApiFactory.getMainNet().ws().market(false);
-        api.getTradeChannel("BTC-USDT").addConsumer(consumer);
+        api.getTradeChannel("ethusdt").addConsumer(consumer);
     }
 }
