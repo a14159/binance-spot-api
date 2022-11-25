@@ -1,8 +1,9 @@
-package io.contek.invoker.binancespot.api.rest.user;
+package io.contek.invoker.binancespot.api.rest.user.margin;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.common._SpotAsset;
-import io.contek.invoker.binancespot.api.rest.user.GetUserAssets.Response;
+import io.contek.invoker.binancespot.api.common._MarginAccountSummary;
+import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
+import io.contek.invoker.binancespot.api.rest.user.margin.GetMarginAccountSummary.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
@@ -10,31 +11,23 @@ import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.util.ArrayList;
 
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
-import static io.contek.invoker.commons.rest.RestMethod.POST;
+import static io.contek.invoker.commons.rest.RestMethod.GET;
 
 @NotThreadSafe
-public final class GetUserAssets extends UserRestRequest<Response> {
+public final class GetMarginAccountSummary extends UserRestRequest<Response> {
 
   private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(5));
+      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(1));
 
-  private String asset;
-
-  GetUserAssets(IActor actor, RestContext context) {
+  GetMarginAccountSummary(IActor actor, RestContext context) {
     super(actor, context);
-  }
-
-  public GetUserAssets setAsset(String asset) {
-    this.asset = asset;
-    return this;
   }
 
   @Override
   protected RestMethod getMethod() {
-    return POST;
+    return GET;
   }
 
   @Override
@@ -44,15 +37,12 @@ public final class GetUserAssets extends UserRestRequest<Response> {
 
   @Override
   protected String getEndpointPath() {
-    return "/sapi/v3/asset/getUserAsset";
+    return "/sapi/v1/portfolio/account";
   }
 
   @Override
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
-
-    if (asset != null)
-      builder.add("asset", asset);
 
     builder.add("timestamp", getMillis());
 
@@ -65,5 +55,5 @@ public final class GetUserAssets extends UserRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response extends ArrayList<_SpotAsset> {}
+  public static final class Response extends _MarginAccountSummary {}
 }

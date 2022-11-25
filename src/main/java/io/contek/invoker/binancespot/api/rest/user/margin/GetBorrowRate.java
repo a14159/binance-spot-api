@@ -1,8 +1,9 @@
-package io.contek.invoker.binancespot.api.rest.user;
+package io.contek.invoker.binancespot.api.rest.user.margin;
 
 import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._BorrowRate;
-import io.contek.invoker.binancespot.api.rest.user.GetBorrowRate.Response;
+import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
+import io.contek.invoker.binancespot.api.rest.user.margin.GetBorrowRate.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;

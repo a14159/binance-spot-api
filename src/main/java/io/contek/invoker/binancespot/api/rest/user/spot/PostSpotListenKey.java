@@ -1,7 +1,8 @@
-package io.contek.invoker.binancespot.api.rest.user;
+package io.contek.invoker.binancespot.api.rest.user.spot;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.rest.user.PutMarginListenKey.Response;
+import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
+import io.contek.invoker.binancespot.api.rest.user.spot.PostSpotListenKey.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
@@ -9,28 +10,21 @@ import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
+import javax.annotation.concurrent.ThreadSafe;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
-import static io.contek.invoker.commons.rest.RestMethod.PUT;
+import static io.contek.invoker.commons.rest.RestMethod.POST;
 
-@NotThreadSafe
-public final class PutMarginListenKey extends UserRestRequest<Response> {
+@ThreadSafe
+public final class PostSpotListenKey extends UserRestRequest<Response> {
 
-  private String listenKey;
-
-  PutMarginListenKey(IActor actor, RestContext context) {
+  PostSpotListenKey(IActor actor, RestContext context) {
     super(actor, context);
-  }
-
-  public PutMarginListenKey setListenKey(String listenKey) {
-    this.listenKey = listenKey;
-    return this;
   }
 
   @Override
   protected RestMethod getMethod() {
-    return PUT;
+    return POST;
   }
 
   @Override
@@ -40,17 +34,12 @@ public final class PutMarginListenKey extends UserRestRequest<Response> {
 
   @Override
   protected String getEndpointPath() {
-    return " /sapi/v1/userDataStream";
+    return "/api/v3/userDataStream";
   }
 
   @Override
   protected RestParams getParams() {
-    RestParams.Builder builder = RestParams.newBuilder();
-
-    checkNotNull(listenKey);
-    builder.add("listenKey", listenKey);
-
-    return builder.build();
+    return RestParams.empty();
   }
 
   @Override
@@ -59,5 +48,8 @@ public final class PutMarginListenKey extends UserRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response {}
+  public static final class Response {
+
+    public String listenKey;
+  }
 }

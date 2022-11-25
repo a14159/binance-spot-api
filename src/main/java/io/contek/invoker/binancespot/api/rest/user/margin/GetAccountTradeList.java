@@ -1,7 +1,8 @@
-package io.contek.invoker.binancespot.api.rest.user;
+package io.contek.invoker.binancespot.api.rest.user.margin;
 
 import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._Trade;
+import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
@@ -63,7 +64,7 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
 
   @Override
   protected String getEndpointPath() {
-    return "/api/v3/myTrades";
+    return " /sapi/v1/margin/myTrades";
   }
 
   @Override

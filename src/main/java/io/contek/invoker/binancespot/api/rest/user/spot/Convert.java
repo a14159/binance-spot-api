@@ -1,8 +1,9 @@
-package io.contek.invoker.binancespot.api.rest.user;
+package io.contek.invoker.binancespot.api.rest.user.spot;
 
 import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._ConvertResponse;
-import io.contek.invoker.binancespot.api.rest.user.Convert.Response;
+import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
+import io.contek.invoker.binancespot.api.rest.user.spot.Convert.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
@@ -10,7 +11,6 @@ import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
-
 import java.math.BigDecimal;
 
 import static com.google.common.base.Preconditions.checkNotNull;

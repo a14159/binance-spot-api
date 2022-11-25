@@ -31,9 +31,9 @@ public abstract class UserWebSocketChannel<Message extends WebSocketEventData>
     return SUBSCRIBED;
   }
 
-  // We do no action in unsubscription phase since all the user-related channel shared the same
+  // We do no action in unsubscription phase since all the userspot-related channel shared the same
   // underlying web socket connection, and there is no way to unsubscribe to a given topic. Either
-  // all user related events will be pushed to us, or the connection is closed altogether.
+  // all userspot related events will be pushed to us, or the connection is closed altogether.
   @Override
   protected final SubscriptionState unsubscribe(WebSocketSession session) {
     return UNSUBSCRIBED;

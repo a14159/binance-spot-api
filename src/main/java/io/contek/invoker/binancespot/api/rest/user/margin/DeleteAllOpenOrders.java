@@ -1,8 +1,9 @@
-package io.contek.invoker.binancespot.api.rest.user;
+package io.contek.invoker.binancespot.api.rest.user.margin;
 
 import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._Order;
-import io.contek.invoker.binancespot.api.rest.user.DeleteAllOpenOrders.Response;
+import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
+import io.contek.invoker.binancespot.api.rest.user.margin.DeleteAllOpenOrders.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
@@ -42,7 +43,7 @@ public final class DeleteAllOpenOrders extends UserRestRequest<Response> {
 
   @Override
   protected String getEndpointPath() {
-    return "/api/v3/openOrders";
+    return "/sapi/v1/margin/openOrders";
   }
 
   @Override

@@ -1,7 +1,7 @@
 package io.contek.invoker.binancespot.api.websocket.user;
 
-import io.contek.invoker.binancespot.api.rest.user.PostSpotListenKey;
-import io.contek.invoker.binancespot.api.rest.user.UserRestApi;
+import io.contek.invoker.binancespot.api.rest.user.spot.PostSpotListenKey;
+import io.contek.invoker.binancespot.api.rest.user.spot.UserSpotRestApi;
 import io.contek.invoker.commons.actor.http.HttpConnectionException;
 import io.contek.invoker.commons.actor.http.HttpInterruptedException;
 import io.contek.invoker.commons.websocket.AnyWebSocketMessage;
@@ -25,13 +25,13 @@ final class SpotUserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
 
   private static final Duration REFRESH_PERIOD = Duration.ofMinutes(10);
 
-  private final UserRestApi userRestApi;
+  private final UserSpotRestApi userSpotRestApi;
   private final Clock clock;
 
   private final AtomicReference<State> stateHolder = new AtomicReference<>(null);
 
-  SpotUserWebSocketLiveKeeper(UserRestApi userRestApi, Clock clock) {
-    this.userRestApi = userRestApi;
+  SpotUserWebSocketLiveKeeper(UserSpotRestApi userSpotRestApi, Clock clock) {
+    this.userSpotRestApi = userSpotRestApi;
     this.clock = clock;
   }
 
@@ -50,7 +50,7 @@ final class SpotUserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
       }
 
       try {
-        userRestApi.putSpotListenKey().setListenKey(state.getListenKey()).submit();
+        userSpotRestApi.putSpotListenKey().setListenKey(state.getListenKey()).submit();
         stateHolder.set(new State(state.getListenKey(), timestamp));
       } catch (HttpConnectionException | HttpInterruptedException e) {
         log.warn("Failed to refresh listen key.", e);
@@ -71,7 +71,7 @@ final class SpotUserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
   String init() {
     synchronized (stateHolder) {
       Instant timestamp = clock.instant();
-      PostSpotListenKey.Response newListenKey = userRestApi.postSpotListenKey().submit();
+      PostSpotListenKey.Response newListenKey = userSpotRestApi.postSpotListenKey().submit();
       String listenKey = newListenKey.listenKey;
       stateHolder.set(new State(listenKey, timestamp));
       return listenKey;

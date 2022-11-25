@@ -2,7 +2,8 @@ package io.contek.invoker.binancespot.api;
 
 import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.rest.market.MarketRestApi;
-import io.contek.invoker.binancespot.api.rest.user.UserRestApi;
+import io.contek.invoker.binancespot.api.rest.user.margin.UserMarginRestApi;
+import io.contek.invoker.binancespot.api.rest.user.spot.UserSpotRestApi;
 import io.contek.invoker.binancespot.api.websocket.market.IMarketWebSocketApi;
 import io.contek.invoker.binancespot.api.websocket.market.combined.MarketCombinedWebSocketApi;
 import io.contek.invoker.binancespot.api.websocket.market.direct.MarketDirectWebSocketApi;
@@ -107,10 +108,16 @@ public final class ApiFactory {
       return new MarketRestApi(actor, restContext);
     }
 
-    public UserRestApi user(ApiKey apiKey) {
+    public UserSpotRestApi userSpot(ApiKey apiKey) {
       RestContext restContext = context.getRestContext();
       IActor actor = actorFactory.create(apiKey, restContext);
-      return new UserRestApi(actor, restContext);
+      return new UserSpotRestApi(actor, restContext);
+    }
+
+    public UserMarginRestApi userMargin(ApiKey apiKey) {
+      RestContext restContext = context.getRestContext();
+      IActor actor = actorFactory.create(apiKey, restContext);
+      return new UserMarginRestApi(actor, restContext);
     }
   }
 
@@ -132,7 +139,7 @@ public final class ApiFactory {
       IActor actor = actorFactory.create(apiKey, wsContext);
       RestContext restContext = context.getRestContext();
       return new SpotUserWebSocketApi(
-          actor, context.getWebSocketContext(), new UserRestApi(actor, restContext));
+          actor, context.getWebSocketContext(), new UserSpotRestApi(actor, restContext));
     }
 
     public MarginUserWebSocketApi userMargin(ApiKey apiKey) {
@@ -140,7 +147,7 @@ public final class ApiFactory {
       IActor actor = actorFactory.create(apiKey, wsContext);
       RestContext restContext = context.getRestContext();
       return new MarginUserWebSocketApi(
-              actor, context.getWebSocketContext(), new UserRestApi(actor, restContext));
+              actor, context.getWebSocketContext(), new UserMarginRestApi(actor, restContext));
     }
   }
 

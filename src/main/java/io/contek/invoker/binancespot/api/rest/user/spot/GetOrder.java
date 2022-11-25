@@ -1,17 +1,16 @@
-package io.contek.invoker.binancespot.api.rest.user;
+package io.contek.invoker.binancespot.api.rest.user.spot;
 
 import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._Order;
-import io.contek.invoker.binancespot.api.rest.user.GetAllOrders.Response;
+import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
+import io.contek.invoker.binancespot.api.rest.user.spot.GetOrder.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -19,44 +18,31 @@ import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_RE
 import static io.contek.invoker.commons.rest.RestMethod.GET;
 
 @NotThreadSafe
-public final class GetAllOrders extends UserRestRequest<Response> {
+public final class GetOrder extends UserRestRequest<Response> {
 
-  public static final int MAX_LIMIT = 1000;
   private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(10));
+      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(2));
 
   private String symbol;
   private Long orderId;
-  private Long startTime;
-  private Long endTime;
-  private Integer limit;
+  private String origClientOrderId;
 
-  GetAllOrders(IActor actor, RestContext context) {
+  GetOrder(IActor actor, RestContext context) {
     super(actor, context);
   }
 
-  public GetAllOrders setSymbol(String symbol) {
+  public GetOrder setSymbol(String symbol) {
     this.symbol = symbol;
     return this;
   }
 
-  public GetAllOrders setOrderId(@Nullable Long orderId) {
+  public GetOrder setOrderId(Long orderId) {
     this.orderId = orderId;
     return this;
   }
 
-  public GetAllOrders setStartTime(@Nullable Long startTime) {
-    this.startTime = startTime;
-    return this;
-  }
-
-  public GetAllOrders setEndTime(@Nullable Long endTime) {
-    this.endTime = endTime;
-    return this;
-  }
-
-  public GetAllOrders setLimit(@Nullable Integer limit) {
-    this.limit = limit;
+  public GetOrder setOrigClientOrderId(String origClientOrderId) {
+    this.origClientOrderId = origClientOrderId;
     return this;
   }
 
@@ -72,7 +58,7 @@ public final class GetAllOrders extends UserRestRequest<Response> {
 
   @Override
   protected String getEndpointPath() {
-    return "/api/v3/allOrders";
+    return "/api/v3/order";
   }
 
   @Override
@@ -82,21 +68,12 @@ public final class GetAllOrders extends UserRestRequest<Response> {
     checkNotNull(symbol);
     builder.add("symbol", symbol);
 
+    checkArgument(orderId != null || origClientOrderId != null);
     if (orderId != null) {
       builder.add("orderId", orderId);
     }
-
-    if (startTime != null) {
-      builder.add("startTime", startTime);
-    }
-
-    if (endTime != null) {
-      builder.add("endTime", endTime);
-    }
-
-    if (limit != null) {
-      checkArgument(limit <= MAX_LIMIT);
-      builder.add("limit", limit);
+    if (origClientOrderId != null) {
+      builder.add("origClientOrderId", origClientOrderId);
     }
 
     builder.add("timestamp", getMillis());
@@ -110,5 +87,5 @@ public final class GetAllOrders extends UserRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response extends ArrayList<_Order> {}
+  public static final class Response extends _Order {}
 }

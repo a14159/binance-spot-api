@@ -10,17 +10,17 @@ import java.time.Clock;
 import static com.google.common.base.Preconditions.checkArgument;
 
 @NotThreadSafe
-abstract class UserRestRequest<T> extends RestRequest<T> {
+public abstract class UserRestRequest<T> extends RestRequest<T> {
 
   private final Clock clock;
 
-  UserRestRequest(IActor actor, RestContext context) {
+  public UserRestRequest(IActor actor, RestContext context) {
     super(actor, context);
     clock = actor.getClock();
     checkArgument(!actor.getCredential().isAnonymous());
   }
 
-  long getMillis() {
+  public long getMillis() {
     return clock.millis();
   }
 }

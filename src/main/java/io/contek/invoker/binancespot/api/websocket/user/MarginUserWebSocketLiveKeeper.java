@@ -1,8 +1,7 @@
 package io.contek.invoker.binancespot.api.websocket.user;
 
-import io.contek.invoker.binancespot.api.rest.user.PostMarginListenKey;
-import io.contek.invoker.binancespot.api.rest.user.PostSpotListenKey;
-import io.contek.invoker.binancespot.api.rest.user.UserRestApi;
+import io.contek.invoker.binancespot.api.rest.user.margin.PostMarginListenKey;
+import io.contek.invoker.binancespot.api.rest.user.margin.UserMarginRestApi;
 import io.contek.invoker.commons.actor.http.HttpConnectionException;
 import io.contek.invoker.commons.actor.http.HttpInterruptedException;
 import io.contek.invoker.commons.websocket.AnyWebSocketMessage;
@@ -26,13 +25,13 @@ final class MarginUserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
 
   private static final Duration REFRESH_PERIOD = Duration.ofMinutes(10);
 
-  private final UserRestApi userRestApi;
+  private final UserMarginRestApi userMarginRestApi;
   private final Clock clock;
 
   private final AtomicReference<State> stateHolder = new AtomicReference<>(null);
 
-  MarginUserWebSocketLiveKeeper(UserRestApi userRestApi, Clock clock) {
-    this.userRestApi = userRestApi;
+  MarginUserWebSocketLiveKeeper(UserMarginRestApi userMarginRestApi, Clock clock) {
+    this.userMarginRestApi = userMarginRestApi;
     this.clock = clock;
   }
 
@@ -51,7 +50,7 @@ final class MarginUserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
       }
 
       try {
-        userRestApi.putMarginListenKey().setListenKey(state.getListenKey()).submit();
+        userMarginRestApi.putMarginListenKey().setListenKey(state.getListenKey()).submit();
         stateHolder.set(new State(state.getListenKey(), timestamp));
       } catch (HttpConnectionException | HttpInterruptedException e) {
         log.warn("Failed to refresh listen key.", e);
@@ -72,7 +71,7 @@ final class MarginUserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
   String init() {
     synchronized (stateHolder) {
       Instant timestamp = clock.instant();
-      PostMarginListenKey.Response newListenKey = userRestApi.postMarginListenKey().submit();
+      PostMarginListenKey.Response newListenKey = userMarginRestApi.postMarginListenKey().submit();
       String listenKey = newListenKey.listenKey;
       stateHolder.set(new State(listenKey, timestamp));
       return listenKey;

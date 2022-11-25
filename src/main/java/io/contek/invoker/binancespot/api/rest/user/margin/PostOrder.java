@@ -1,8 +1,9 @@
-package io.contek.invoker.binancespot.api.rest.user;
+package io.contek.invoker.binancespot.api.rest.user.margin;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.common._Order;
-import io.contek.invoker.binancespot.api.rest.user.PostOrder.Response;
+import io.contek.invoker.binancespot.api.common._OrderAck;
+import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
+import io.contek.invoker.binancespot.api.rest.user.margin.PostOrder.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
@@ -11,11 +12,11 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-
 import java.math.BigDecimal;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_ORDER_REQUEST;
+import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.API_KEY_REST_ORDER_RULE;
+import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.POST;
 
 @NotThreadSafe
@@ -31,7 +32,6 @@ public final class PostOrder extends UserRestRequest<Response> {
   private String newClientOrderId;
   private BigDecimal stopPrice;
   private BigDecimal icebergQty;
-  private String newOrderRespType;
 
   PostOrder(IActor actor, RestContext context) {
     super(actor, context);
@@ -87,11 +87,6 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setNewOrderRespType(@Nullable String newOrderRespType) {
-    this.newOrderRespType = newOrderRespType;
-    return this;
-  }
-
   @Override
   protected Class<Response> getResponseType() {
     return Response.class;
@@ -104,7 +99,7 @@ public final class PostOrder extends UserRestRequest<Response> {
 
   @Override
   protected String getEndpointPath() {
-    return "/api/v3/order";
+    return "/sapi/v1/margin/order";
   }
 
   @Override
@@ -148,9 +143,7 @@ public final class PostOrder extends UserRestRequest<Response> {
       builder.add("icebergQty", icebergQty.toPlainString());
     }
 
-    if (newOrderRespType != null) {
-      builder.add("newOrderRespType", newOrderRespType);
-    }
+    builder.add("newOrderRespType", "ACK");
 
     builder.add("timestamp", getMillis());
 
@@ -159,9 +152,9 @@ public final class PostOrder extends UserRestRequest<Response> {
 
   @Override
   protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
-    return ONE_REST_ORDER_REQUEST;
+    return ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(6), API_KEY_REST_ORDER_RULE.forPermits(6));
   }
 
   @NotThreadSafe
-  public static final class Response extends _Order {}
+  public static final class Response extends _OrderAck {}
 }

@@ -1,8 +1,9 @@
-package io.contek.invoker.binancespot.api.rest.user;
+package io.contek.invoker.binancespot.api.rest.user.margin;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.common._CrossCollateralWallet;
-import io.contek.invoker.binancespot.api.rest.user.GetCrossCollateralWallet.Response;
+import io.contek.invoker.binancespot.api.common._MarginAccount;
+import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
+import io.contek.invoker.binancespot.api.rest.user.margin.GetMarginAccount.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
@@ -15,12 +16,12 @@ import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_RE
 import static io.contek.invoker.commons.rest.RestMethod.GET;
 
 @NotThreadSafe
-public final class GetCrossCollateralWallet extends UserRestRequest<Response> {
+public final class GetMarginAccount extends UserRestRequest<Response> {
 
   private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(1));
+      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(10));
 
-  GetCrossCollateralWallet(IActor actor, RestContext context) {
+  GetMarginAccount(IActor actor, RestContext context) {
     super(actor, context);
   }
 
@@ -36,7 +37,7 @@ public final class GetCrossCollateralWallet extends UserRestRequest<Response> {
 
   @Override
   protected String getEndpointPath() {
-    return "/sapi/v2/futures/loan/wallet";
+    return "/sapi/v1/margin/account";
   }
 
   @Override
@@ -54,5 +55,5 @@ public final class GetCrossCollateralWallet extends UserRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response extends _CrossCollateralWallet {}
+  public static final class Response extends _MarginAccount {}
 }

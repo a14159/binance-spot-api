@@ -1,7 +1,8 @@
-package io.contek.invoker.binancespot.api.rest.user;
+package io.contek.invoker.binancespot.api.rest.user.margin;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.rest.user.PutSpotListenKey.Response;
+import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
+import io.contek.invoker.binancespot.api.rest.user.margin.PutMarginListenKey.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
@@ -15,15 +16,15 @@ import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_R
 import static io.contek.invoker.commons.rest.RestMethod.PUT;
 
 @NotThreadSafe
-public final class PutSpotListenKey extends UserRestRequest<Response> {
+public final class PutMarginListenKey extends UserRestRequest<Response> {
 
   private String listenKey;
 
-  PutSpotListenKey(IActor actor, RestContext context) {
+  PutMarginListenKey(IActor actor, RestContext context) {
     super(actor, context);
   }
 
-  public PutSpotListenKey setListenKey(String listenKey) {
+  public PutMarginListenKey setListenKey(String listenKey) {
     this.listenKey = listenKey;
     return this;
   }
@@ -40,7 +41,7 @@ public final class PutSpotListenKey extends UserRestRequest<Response> {
 
   @Override
   protected String getEndpointPath() {
-    return "/api/v3/userDataStream";
+    return " /sapi/v1/userDataStream";
   }
 
   @Override

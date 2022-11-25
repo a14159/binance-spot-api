@@ -3,7 +3,10 @@ import io.contek.invoker.binancespot.api.common._AccountBalance;
 import io.contek.invoker.binancespot.api.common._CrossCollateral;
 import io.contek.invoker.binancespot.api.common._MarginAsset;
 import io.contek.invoker.binancespot.api.common._TradeFees;
-import io.contek.invoker.binancespot.api.rest.user.*;
+import io.contek.invoker.binancespot.api.rest.user.margin.GetCrossCollateralWallet;
+import io.contek.invoker.binancespot.api.rest.user.margin.GetMarginAccount;
+import io.contek.invoker.binancespot.api.rest.user.margin.UserMarginRestApi;
+import io.contek.invoker.binancespot.api.rest.user.spot.*;
 import io.contek.invoker.security.ApiKey;
 
 import java.math.BigDecimal;
@@ -14,7 +17,7 @@ public class TestAccount {
         ApiKey key = ApiKey.newBuilder()
                 .setId("rEeWct02uEibzseqkbyeUIXM1PzmvAUJaKfH1GdKIBG6dQUWpYApPcA16JgXWN4s")
                 .setSecret("n6rn7viEc6Pt1R0wRmP7bY3pZZC1byPzoylnPMG0nGYIi12aGAHk2JYPaI1hv3bz").build();
-        UserRestApi api = ApiFactory.getMainNet().rest().user(key);
+        UserSpotRestApi api = ApiFactory.getMainNet().rest().userSpot(key);
         GetAccount.Response account = api.getAccount().submit();
         System.out.println("Account type: " + account.accountType);
         System.out.println("Maker commission: " + account.makerCommission);
@@ -51,7 +54,8 @@ public class TestAccount {
 //        System.out.println("Margin account - total equity: " + marginSummary.accountEquity);
 
         System.out.println();
-        GetMarginAccount.Response marginAccount = api.getMarginAccount().submit();
+        UserMarginRestApi apiMargin = ApiFactory.getMainNet().rest().userMargin(key);
+        GetMarginAccount.Response marginAccount = apiMargin.getMarginAccount().submit();
         System.out.println("Margin account - margin level: " + marginAccount.marginLevel);
         System.out.println("Margin account - total net assets: " + marginAccount.totalNetAssetOfBtc);
         for (_MarginAsset asset : marginAccount.userAssets) {
@@ -63,7 +67,7 @@ public class TestAccount {
         }
 
         System.out.println();
-        GetCrossCollateralWallet.Response crossWallet = api.getCrossCollateralWallet().submit();
+        GetCrossCollateralWallet.Response crossWallet = apiMargin.getCrossCollateralWallet().submit();
         System.out.println("Cross wallet - asset: " + crossWallet.asset);
         System.out.println("Cross wallet - total collateral: " + crossWallet.totalCrossCollateral);
         for (_CrossCollateral asset : crossWallet.crossCollaterals) {

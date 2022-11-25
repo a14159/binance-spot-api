@@ -1,8 +1,9 @@
-package io.contek.invoker.binancespot.api.rest.user;
+package io.contek.invoker.binancespot.api.rest.user.spot;
 
 import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._Order;
-import io.contek.invoker.binancespot.api.rest.user.GetOrder.Response;
+import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
+import io.contek.invoker.binancespot.api.rest.user.spot.DeleteOrder.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
@@ -13,46 +14,49 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
-import static io.contek.invoker.commons.rest.RestMethod.GET;
+import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
+import static io.contek.invoker.commons.rest.RestMethod.DELETE;
 
 @NotThreadSafe
-public final class GetOrder extends UserRestRequest<Response> {
-
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(2));
+public final class DeleteOrder extends UserRestRequest<Response> {
 
   private String symbol;
   private Long orderId;
   private String origClientOrderId;
+  private String newClientOrderId;
 
-  GetOrder(IActor actor, RestContext context) {
+  DeleteOrder(IActor actor, RestContext context) {
     super(actor, context);
   }
 
-  public GetOrder setSymbol(String symbol) {
+  public DeleteOrder setSymbol(String symbol) {
     this.symbol = symbol;
     return this;
   }
 
-  public GetOrder setOrderId(Long orderId) {
+  public DeleteOrder setOrderId(Long orderId) {
     this.orderId = orderId;
     return this;
   }
 
-  public GetOrder setOrigClientOrderId(String origClientOrderId) {
+  public DeleteOrder setOrigClientOrderId(String origClientOrderId) {
     this.origClientOrderId = origClientOrderId;
     return this;
   }
 
-  @Override
-  protected RestMethod getMethod() {
-    return GET;
+  public DeleteOrder setNewClientOrderId(String newClientOrderId) {
+    this.newClientOrderId = newClientOrderId;
+    return this;
   }
 
   @Override
   protected Class<Response> getResponseType() {
     return Response.class;
+  }
+
+  @Override
+  protected RestMethod getMethod() {
+    return DELETE;
   }
 
   @Override
@@ -74,6 +78,9 @@ public final class GetOrder extends UserRestRequest<Response> {
     if (origClientOrderId != null) {
       builder.add("origClientOrderId", origClientOrderId);
     }
+    if (newClientOrderId != null) {
+      builder.add("newClientOrderId", newClientOrderId);
+    }
 
     builder.add("timestamp", getMillis());
 
@@ -82,7 +89,7 @@ public final class GetOrder extends UserRestRequest<Response> {
 
   @Override
   protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
-    return REQUIRED_QUOTA;
+    return ONE_REST_REQUEST;
   }
 
   @NotThreadSafe

@@ -1,7 +1,7 @@
 package io.contek.invoker.binancespot.api.websocket.user;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.rest.user.UserRestApi;
+import io.contek.invoker.binancespot.api.rest.user.spot.UserSpotRestApi;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.websocket.*;
@@ -21,12 +21,12 @@ public final class SpotUserWebSocketApi extends BaseWebSocketApi {
   public OrderUpdateChannel orderUpdateChannel;
 
 
-  public SpotUserWebSocketApi(IActor actor, WebSocketContext context, UserRestApi userRestApi) {
+  public SpotUserWebSocketApi(IActor actor, WebSocketContext context, UserSpotRestApi userSpotRestApi) {
     super(
         actor,
         UserWebSocketParser.getInstance(),
         IWebSocketAuthenticator.noOp(),
-        new SpotUserWebSocketLiveKeeper(userRestApi, actor.getClock()));
+        new SpotUserWebSocketLiveKeeper(userSpotRestApi, actor.getClock()));
     this.context = context;
   }
 

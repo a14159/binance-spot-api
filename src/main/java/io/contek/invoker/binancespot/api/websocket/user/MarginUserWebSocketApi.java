@@ -1,7 +1,7 @@
 package io.contek.invoker.binancespot.api.websocket.user;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.rest.user.UserRestApi;
+import io.contek.invoker.binancespot.api.rest.user.margin.UserMarginRestApi;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.websocket.*;
@@ -21,12 +21,12 @@ public final class MarginUserWebSocketApi extends BaseWebSocketApi {
   public OrderUpdateChannel orderUpdateChannel;
 
 
-  public MarginUserWebSocketApi(IActor actor, WebSocketContext context, UserRestApi userRestApi) {
+  public MarginUserWebSocketApi(IActor actor, WebSocketContext context, UserMarginRestApi userMarginRestApi) {
     super(
         actor,
         UserWebSocketParser.getInstance(),
         IWebSocketAuthenticator.noOp(),
-        new MarginUserWebSocketLiveKeeper(userRestApi, actor.getClock()));
+        new MarginUserWebSocketLiveKeeper(userMarginRestApi, actor.getClock()));
     this.context = context;
   }
 

@@ -1,8 +1,9 @@
-package io.contek.invoker.binancespot.api.rest.user;
+package io.contek.invoker.binancespot.api.rest.user.spot;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.common._MarginAccountSummary;
-import io.contek.invoker.binancespot.api.rest.user.GetMarginAccountSummary.Response;
+import io.contek.invoker.binancespot.api.common._Account;
+import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
+import io.contek.invoker.binancespot.api.rest.user.spot.GetAccount.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
@@ -15,12 +16,12 @@ import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_RE
 import static io.contek.invoker.commons.rest.RestMethod.GET;
 
 @NotThreadSafe
-public final class GetMarginAccountSummary extends UserRestRequest<Response> {
+public final class GetAccount extends UserRestRequest<Response> {
 
   private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(1));
+      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(10));
 
-  GetMarginAccountSummary(IActor actor, RestContext context) {
+  GetAccount(IActor actor, RestContext context) {
     super(actor, context);
   }
 
@@ -36,7 +37,7 @@ public final class GetMarginAccountSummary extends UserRestRequest<Response> {
 
   @Override
   protected String getEndpointPath() {
-    return "/sapi/v1/portfolio/account";
+    return "/api/v3/account";
   }
 
   @Override
@@ -54,5 +55,5 @@ public final class GetMarginAccountSummary extends UserRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response extends _MarginAccountSummary {}
+  public static final class Response extends _Account {}
 }
