@@ -24,6 +24,10 @@ public final class MarketRestApi {
     return new GetExchangeInfo(actor, context);
   }
 
+  public Get24hSummary get24hSummary() {
+    return new Get24hSummary(actor, context);
+  }
+
   public GetKlines getKlines() {
     return new GetKlines(actor, context);
   }
