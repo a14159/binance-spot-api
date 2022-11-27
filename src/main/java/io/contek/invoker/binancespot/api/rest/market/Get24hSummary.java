@@ -9,8 +9,8 @@ import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.util.ArrayList;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 
@@ -45,8 +45,8 @@ public final class Get24hSummary extends MarketRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    if (symbol != null)
-      builder.add("symbol", symbol);
+    checkNotNull(symbol);
+    builder.add("symbol", symbol);
 
     builder.add("type", "MINI");
 
@@ -62,5 +62,5 @@ public final class Get24hSummary extends MarketRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response extends ArrayList<_MiniTickerSummary> {}
+  public static final class Response extends _MiniTickerSummary {}
 }
