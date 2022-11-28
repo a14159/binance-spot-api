@@ -8,7 +8,7 @@ public class _ExchangeInfo {
 
   public String timezone;
   public long serverTime;
-  public List<String> rateLimits;
+  public List<Object> rateLimits;
   public List<String> exchangeFilters;
   public List<_MarketInfo> symbols;
 }

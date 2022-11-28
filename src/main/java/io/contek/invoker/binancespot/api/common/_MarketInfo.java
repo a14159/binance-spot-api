@@ -1,6 +1,7 @@
 package io.contek.invoker.binancespot.api.common;
 
 import javax.annotation.concurrent.NotThreadSafe;
+import java.util.HashMap;
 import java.util.List;
 
 @NotThreadSafe
@@ -21,6 +22,13 @@ public class _MarketInfo {
   public boolean cancelReplaceAllowed;
   public boolean isSpotTradingAllowed;
   public boolean isMarginTradingAllowed;
-  public List<String> filters;
+  public List<_Filter> filters;
   public List<String> permissions;
+
+  @NotThreadSafe
+  public static class _Filter extends HashMap<String, String> {
+    public String getFilterType() {
+      return get("filterType");
+    }
+  }
 }
