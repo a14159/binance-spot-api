@@ -2,7 +2,7 @@ package io.contek.invoker.binancespot.api.rest.market;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedSet;
-import io.contek.invoker.binancespot.api.common._OrderBookLevel;
+import io.contek.invoker.binancespot.api.common._OrderBook;
 import io.contek.invoker.binancespot.api.rest.market.GetDepth.Response;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
@@ -11,7 +11,6 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -97,11 +96,5 @@ public final class GetDepth extends MarketRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response {
-
-    public Long lastUpdateId;
-
-    public List<_OrderBookLevel> bids;
-    public List<_OrderBookLevel> asks;
-  }
+  public static final class Response extends _OrderBook {}
 }
