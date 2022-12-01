@@ -28,6 +28,10 @@ public final class MarketRestApi {
     return new Get24hSummary(actor, context);
   }
 
+  public GetAggregatedTrades getAggregatedTrades() {
+    return new GetAggregatedTrades(actor, context);
+  }
+
   public GetKlines getKlines() {
     return new GetKlines(actor, context);
   }
