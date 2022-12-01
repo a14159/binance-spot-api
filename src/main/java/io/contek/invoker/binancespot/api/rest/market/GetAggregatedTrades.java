@@ -10,6 +10,8 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
+import java.util.ArrayList;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 
@@ -33,8 +35,6 @@ public final class GetAggregatedTrades extends MarketRestRequest<Response> {
 
   /**
    * Timestamp in ms to get aggregate trades from INCLUSIVE.
-   * @param startTime
-   * @return
    */
   public GetAggregatedTrades setStartTime(long startTime) {
     this.startTime = startTime;
@@ -43,8 +43,6 @@ public final class GetAggregatedTrades extends MarketRestRequest<Response> {
 
   /**
    * Timestamp in ms to get aggregate trades until INCLUSIVE.
-   * @param endTime
-   * @return
    */
   public GetAggregatedTrades setEndTime(long endTime) {
     this.endTime = endTime;
@@ -86,5 +84,5 @@ public final class GetAggregatedTrades extends MarketRestRequest<Response> {
   }
 
   @NotThreadSafe
-  public static final class Response extends _AggTrade {}
+  public static final class Response extends ArrayList<_AggTrade> {}
 }
