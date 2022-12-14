@@ -32,7 +32,7 @@ public final class PostOrder extends UserRestRequest<Response> {
   private String newClientOrderId;
   private BigDecimal stopPrice;
   private BigDecimal icebergQty;
-  private String sideEffectType;
+  private Object sideEffectType;
 
   PostOrder(IActor actor, RestContext context) {
     super(actor, context);
@@ -88,7 +88,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setSideEffectType(String sideEffectType) {
+  public PostOrder setSideEffectType(Object sideEffectType) {
     this.sideEffectType = sideEffectType;
     return this;
   }
@@ -150,7 +150,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     }
 
     if (sideEffectType != null) {
-      builder.add("sideEffectType", sideEffectType);
+      builder.add("sideEffectType", sideEffectType.toString());
     }
 
     builder.add("newOrderRespType", "RESULT");
