@@ -1,7 +1,6 @@
 package io.contek.invoker.binancespot.api.rest.user.margin;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.common._Order;
 import io.contek.invoker.binancespot.api.common._OrderResult;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.margin.PostOrder.Response;
@@ -33,6 +32,7 @@ public final class PostOrder extends UserRestRequest<Response> {
   private String newClientOrderId;
   private BigDecimal stopPrice;
   private BigDecimal icebergQty;
+  private String sideEffectType;
 
   PostOrder(IActor actor, RestContext context) {
     super(actor, context);
@@ -85,6 +85,11 @@ public final class PostOrder extends UserRestRequest<Response> {
 
   public PostOrder setIcebergQty(@Nullable BigDecimal icebergQty) {
     this.icebergQty = icebergQty;
+    return this;
+  }
+
+  public PostOrder setSideEffectType(String sideEffectType) {
+    this.sideEffectType = sideEffectType;
     return this;
   }
 
@@ -142,6 +147,10 @@ public final class PostOrder extends UserRestRequest<Response> {
 
     if (icebergQty != null) {
       builder.add("icebergQty", icebergQty.toPlainString());
+    }
+
+    if (sideEffectType != null) {
+      builder.add("sideEffectType", sideEffectType);
     }
 
     builder.add("newOrderRespType", "RESULT");

@@ -9,7 +9,6 @@ import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
-
 import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
