@@ -15,7 +15,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import java.math.BigDecimal;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_ORDER_REQUEST;
+import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.*;
 import static io.contek.invoker.commons.rest.RestMethod.POST;
 
 @NotThreadSafe
@@ -159,7 +159,7 @@ public final class PostOrder extends UserRestRequest<Response> {
 
   @Override
   protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
-    return ONE_REST_ORDER_REQUEST;
+    return ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(1), API_KEY_REST_ORDER_RULE.forPermits(1));
   }
 
   @NotThreadSafe

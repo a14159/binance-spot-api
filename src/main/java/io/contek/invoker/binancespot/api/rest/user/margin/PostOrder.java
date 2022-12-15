@@ -162,7 +162,7 @@ public final class PostOrder extends UserRestRequest<Response> {
 
   @Override
   protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
-    return ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(6), API_KEY_REST_ORDER_RULE.forPermits(6));
+    return ImmutableList.of(API_KEY_REST_ORDER_RULE.forPermits(6));
   }
 
   @NotThreadSafe
