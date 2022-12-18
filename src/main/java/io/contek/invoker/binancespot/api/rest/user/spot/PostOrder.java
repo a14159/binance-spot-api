@@ -1,7 +1,6 @@
 package io.contek.invoker.binancespot.api.rest.user.spot;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.common._Order;
 import io.contek.invoker.binancespot.api.common._OrderAck;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.spot.PostOrder.Response;
