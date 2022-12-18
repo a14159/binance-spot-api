@@ -87,11 +87,6 @@ public final class PostOrder extends UserRestRequest<Response> {
     return this;
   }
 
-  public PostOrder setNewOrderRespType(@Nullable String newOrderRespType) {
-    this.newOrderRespType = newOrderRespType;
-    return this;
-  }
-
   @Override
   protected Class<Response> getResponseType() {
     return Response.class;
@@ -148,9 +143,7 @@ public final class PostOrder extends UserRestRequest<Response> {
       builder.add("icebergQty", icebergQty.toPlainString());
     }
 
-    if (newOrderRespType != null) {
-      builder.add("newOrderRespType", newOrderRespType);
-    }
+    builder.add("newOrderRespType", "ACK");
 
     builder.add("timestamp", getMillis());
 
