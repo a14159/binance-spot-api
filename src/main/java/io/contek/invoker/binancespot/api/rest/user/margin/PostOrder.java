@@ -153,7 +153,7 @@ public final class PostOrder extends UserRestRequest<Response> {
       builder.add("sideEffectType", sideEffectType.toString());
     }
 
-    builder.add("newOrderRespType", "RESULT");
+    builder.add("newOrderRespType", "ACK"); // ACK, RESULT, FULL
 
     builder.add("timestamp", getMillis());
 
