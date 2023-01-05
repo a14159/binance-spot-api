@@ -23,7 +23,7 @@ final class SpotUserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
 
   private static final Logger log = getLogger(SpotUserWebSocketLiveKeeper.class);
 
-  private static final Duration REFRESH_PERIOD = Duration.ofMinutes(10);
+  private static final Duration REFRESH_PERIOD = Duration.ofMinutes(30);
 
   private final UserSpotRestApi userSpotRestApi;
   private final Clock clock;

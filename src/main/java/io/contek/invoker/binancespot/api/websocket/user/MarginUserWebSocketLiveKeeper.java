@@ -23,7 +23,7 @@ final class MarginUserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
 
   private static final Logger log = getLogger(MarginUserWebSocketLiveKeeper.class);
 
-  private static final Duration REFRESH_PERIOD = Duration.ofMinutes(10);
+  private static final Duration REFRESH_PERIOD = Duration.ofMinutes(30);
 
   private final UserMarginRestApi userMarginRestApi;
   private final Clock clock;
