@@ -19,12 +19,12 @@
         <dependency>
             <groupId>io.contek.invoker</groupId>
             <artifactId>invoker-commons</artifactId>
-            <version>3.6.2</version>
+            <version>3.6.4</version>
         </dependency>
         <dependency>
             <groupId>io.contek.invoker</groupId>
             <artifactId>invoker-security</artifactId>
-            <version>3.6.2</version>
+            <version>3.6.4</version>
         </dependency>
 
         <dependency>
