@@ -30,7 +30,7 @@ public abstract class RestRequest<R> extends BaseRestRequest<R> {
   protected abstract RestParams getParams();
 
   @Override
-  protected final RestCall createCall(ICredential credential) {
+  protected RestCall createCall(ICredential credential) { // modified (removed final) to allow PostSpotListener to remove the signature
     RestMethod method = getMethod();
     switch (method) {
       case GET:
