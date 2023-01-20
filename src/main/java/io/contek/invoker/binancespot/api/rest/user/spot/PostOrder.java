@@ -24,7 +24,7 @@ public final class PostOrder extends UserRestRequest<Response> {
   private String symbol;
   private String side;
   private String type;
-  private String timeInForce;
+  private String timeInForce = "GTC";
   private BigDecimal quantity;
   private BigDecimal quoteOrderQty;
   private BigDecimal price;
