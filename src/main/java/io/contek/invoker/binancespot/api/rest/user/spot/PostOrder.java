@@ -24,7 +24,7 @@ public final class PostOrder extends UserRestRequest<Response> {
   private String symbol;
   private String side;
   private String type;
-  private String timeInForce = "GTC";
+  private String timeInForce;
   private BigDecimal quantity;
   private BigDecimal quoteOrderQty;
   private BigDecimal price;
@@ -114,6 +114,8 @@ public final class PostOrder extends UserRestRequest<Response> {
 
     checkNotNull(type);
     builder.add("type", type);
+    if (type.equalsIgnoreCase("LIMIT") && timeInForce == null)
+      timeInForce = "GTC";
 
     if (quantity != null) {
       builder.add("quantity", quantity.toPlainString());
