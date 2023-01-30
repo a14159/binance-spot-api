@@ -15,7 +15,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import java.math.BigDecimal;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.*;
+import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.API_KEY_REST_ORDER_RULE;
+import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.POST;
 
 @NotThreadSafe
