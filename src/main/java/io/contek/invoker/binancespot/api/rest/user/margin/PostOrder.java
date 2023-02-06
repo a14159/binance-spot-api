@@ -2,6 +2,7 @@ package io.contek.invoker.binancespot.api.rest.user.margin;
 
 import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._OrderResult;
+import io.contek.invoker.binancespot.api.common.constants.OrderTypeKeys;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.margin.PostOrder.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -135,7 +136,8 @@ public final class PostOrder extends UserRestRequest<Response> {
     if (timeInForce != null) {
       builder.add("timeInForce", timeInForce);
     } else {
-      builder.add("timeInForce", "GTC");
+      if (type.equals(OrderTypeKeys._LIMIT))
+        builder.add("timeInForce", "GTC"); // required for LOs
     }
 
     if (newClientOrderId != null) {
