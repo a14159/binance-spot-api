@@ -134,7 +134,7 @@ public final class PostOrder extends UserRestRequest<Response> {
     if (timeInForce != null) {
       builder.add("timeInForce", timeInForce);
     } else {
-      if (type.equals(OrderTypeKeys._LIMIT))
+      if (type.equals(OrderTypeKeys._LIMIT) || type.equals(OrderTypeKeys._LIMIT_MAKER))
         builder.add("timeInForce", "GTC"); // required for LOs
     }
 
