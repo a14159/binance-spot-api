@@ -52,7 +52,7 @@ final class SpotUserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
         userSpotRestApi.putSpotListenKey().setListenKey(state.getListenKey()).submit();
         stateHolder.set(new State(state.getListenKey(), timestamp));
       } catch (AnyHttpException e) {
-        log.warn("Failed to refresh listen key.", e);
+        log.warn("Failed to refresh listen key: {}", e.getMessage());
       }
     }
   }
