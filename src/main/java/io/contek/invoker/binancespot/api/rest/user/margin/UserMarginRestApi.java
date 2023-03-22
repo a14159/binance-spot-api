@@ -40,6 +40,10 @@ public final class UserMarginRestApi {
     return new GetBorrowRate(actor, context);
   }
 
+  public GetNextHourBorrowRate getNextHourBorrowRate() {
+    return new GetNextHourBorrowRate(actor, context);
+  }
+
   public GetAccountTradeList getAccountTradeList() {
     return new GetAccountTradeList(actor, context);
   }
