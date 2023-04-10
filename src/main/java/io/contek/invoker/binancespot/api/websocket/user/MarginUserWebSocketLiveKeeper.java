@@ -52,7 +52,7 @@ final class MarginUserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
         userMarginRestApi.putMarginListenKey().setListenKey(state.getListenKey()).submit();
         stateHolder.set(new State(state.getListenKey(), timestamp));
       } catch (AnyHttpException e) {
-        log.warn("Failed to refresh listen key.", e);
+        log.warn("Failed to refresh listen key: {} {}", e.getClass().getSimpleName(), e.getMessage());
       }
     }
   }
