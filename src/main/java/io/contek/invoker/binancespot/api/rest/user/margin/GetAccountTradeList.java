@@ -24,7 +24,7 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
       ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(10));
 
   private String symbol;
-  private long orderId;
+  private String orderId;
   private long startTime;
   private long endTime;
 
@@ -37,7 +37,7 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
     return this;
   }
 
-  public GetAccountTradeList setOrderId(long orderId) {
+  public GetAccountTradeList setOrderId(String orderId) {
     this.orderId = orderId;
     return this;
   }
@@ -74,8 +74,8 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
     checkNotNull(symbol);
     builder.add("symbol", symbol);
 
-    checkArgument(orderId != 0 || (startTime != 0 && endTime != 0));
-    if (orderId != 0)
+    checkArgument(orderId != null || (startTime != 0 && endTime != 0));
+    if (orderId != null)
       builder.add("orderId", orderId);
     if (startTime != 0)
       builder.add("startTime", startTime);
