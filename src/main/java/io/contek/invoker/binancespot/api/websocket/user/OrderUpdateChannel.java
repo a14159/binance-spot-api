@@ -49,14 +49,14 @@ public final class OrderUpdateChannel extends UserWebSocketChannel<OrderUpdateCh
         public String x; // Current execution type
         public String X; // current order status
         public String r; // Order reject reason; will be an error code
-        public long i; // order id
+        public String i; // order id
         public BigDecimal l; // order last filled quantity
         public BigDecimal z; // order filled accumulated quantity
         public BigDecimal L; // Last executed price
         public String N; // commission asset
         public BigDecimal n; // commission amount
         public long T; // order trade time
-        public long t; // trade id
+        public String t; // trade id
         public long I; // ignore
 
         public boolean w; // is the order in the book?
