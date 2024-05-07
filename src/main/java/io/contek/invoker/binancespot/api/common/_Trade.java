@@ -7,8 +7,8 @@ import java.math.BigDecimal;
 public class _Trade {
 
   public String symbol;
-  public long id;
-  public long orderId;
+  public String id;
+  public String orderId;
   public long orderListId;
   public BigDecimal price;
   public BigDecimal qty;

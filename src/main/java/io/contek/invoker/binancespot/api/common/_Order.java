@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public class _Order {
 
   public String symbol;
-  public long orderId;
+  public String orderId;
   public long orderListId;
   public String clientOrderId;
   public long transactTime;
