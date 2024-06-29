@@ -1,7 +1,6 @@
 package io.contek.invoker.binancespot.api.rest.user.margin;
 
 import com.google.common.collect.ImmutableList;
-import io.contek.invoker.binancespot.api.common._BorrowRate;
 import io.contek.invoker.binancespot.api.common._NextHourRate;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.commons.actor.IActor;
