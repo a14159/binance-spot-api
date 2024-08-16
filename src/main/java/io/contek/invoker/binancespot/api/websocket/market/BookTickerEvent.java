@@ -14,4 +14,5 @@ public class BookTickerEvent extends WebSocketEventData {
   public BigDecimal B; // best bid qty
   public BigDecimal a; // best ask price
   public BigDecimal A; // best ask qty
+  public long traceNano = System.nanoTime();
 }

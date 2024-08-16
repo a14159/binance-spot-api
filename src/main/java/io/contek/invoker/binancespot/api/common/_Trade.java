@@ -19,4 +19,5 @@ public class _Trade {
   public boolean isBuyer;
   public boolean isMaker;
   public boolean isBestMatch;
+  public long traceNano;
 }

@@ -68,5 +68,6 @@ public final class OrderUpdateChannel extends UserWebSocketChannel<OrderUpdateCh
         public BigDecimal Q; // Quote Order Qty
         public long j; // strategy id. This is only visible if the strategyId parameter was provided upon order placement
         public long J; // strategy type. This is only visible if the strategy type parameter was provided upon order placement
+        public long traceNano = System.nanoTime();
     }
 }

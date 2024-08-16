@@ -11,4 +11,5 @@ public class _BookTicker {
   public BigDecimal bidQty;
   public BigDecimal askPrice;
   public BigDecimal askQty;
+  public long traceNano = System.nanoTime();
 }

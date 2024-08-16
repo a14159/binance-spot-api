@@ -15,4 +15,5 @@ public class DepthDiffEvent extends WebSocketEventData {
   public long u; // last update Id from last stream
   public List<_OrderBookLevel> b; // Bids to be updated [Price level to be updated, Quantity]
   public List<_OrderBookLevel> a; // Asks to be updated [Price level to be updated, Quantity]
+  public long traceNano = System.nanoTime();
 }

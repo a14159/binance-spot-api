@@ -12,4 +12,5 @@ public class DepthPartialEvent extends WebSocketEventData {
   public long lastUpdateId; // last update Id from last stream
   public List<_OrderBookLevel> bids; // Bids to be updated [Price level to be updated, Quantity]
   public List<_OrderBookLevel> asks; // Asks to be updated [Price level to be updated, Quantity]
+  public long traceNano = System.nanoTime();
 }
