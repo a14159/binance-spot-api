@@ -7,7 +7,8 @@ import io.contek.invoker.commons.websocket.AnyWebSocketMessage;
 import io.contek.invoker.commons.websocket.IWebSocketLiveKeeper;
 import io.contek.invoker.commons.websocket.WebSocketSession;
 import io.contek.invoker.commons.websocket.WebSocketSessionInactiveException;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.concurrent.Immutable;
 import java.time.Clock;
@@ -15,12 +16,11 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static org.slf4j.LoggerFactory.getLogger;
 
 @Immutable
 final class SpotUserWebSocketLiveKeeper implements IWebSocketLiveKeeper {
 
-  private static final Logger log = getLogger(SpotUserWebSocketLiveKeeper.class);
+  private static final Logger log = LogManager.getLogger(SpotUserWebSocketLiveKeeper.class);
 
   private static final Duration REFRESH_PERIOD = Duration.ofMinutes(30);
 
