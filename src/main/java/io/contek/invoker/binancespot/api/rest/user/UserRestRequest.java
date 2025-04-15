@@ -7,7 +7,6 @@ import io.contek.invoker.commons.rest.RestContext;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.time.Clock;
 
-import static com.google.common.base.Preconditions.checkArgument;
 
 @NotThreadSafe
 public abstract class UserRestRequest<T> extends RestRequest<T> {
@@ -17,7 +16,9 @@ public abstract class UserRestRequest<T> extends RestRequest<T> {
   public UserRestRequest(IActor actor, RestContext context) {
     super(actor, context);
     clock = actor.getClock();
-    checkArgument(!actor.getCredential().isAnonymous());
+    if (actor.getCredential().isAnonymous()) {
+      throw new IllegalArgumentException();
+    }
   }
 
   public long getMillis() {

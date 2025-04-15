@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.websocket.market.combined;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.websocket.WebSocketRequestIdGenerator;
 import io.contek.invoker.binancespot.api.websocket.common.WebSocketEventData;
 import io.contek.invoker.commons.websocket.AnyWebSocketMessage;
@@ -10,6 +9,7 @@ import io.contek.invoker.commons.websocket.WebSocketSession;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static io.contek.invoker.binancespot.api.websocket.common.constants.WebSocketMethods.SUBSCRIBE;
@@ -46,7 +46,7 @@ abstract class MarketCombinedChannel<
       MarketCombinedChannelId<Message> id = getId();
       WebSocketCommand command = new WebSocketCommand();
       command.method = SUBSCRIBE;
-      command.params = ImmutableList.of(id.getValue());
+      command.params = List.of(id.getValue());
       command.id = requestIdGenerator.getNextRequestId();
       session.send(command);
       pendingCommandHolder.set(command);
@@ -64,7 +64,7 @@ abstract class MarketCombinedChannel<
       MarketCombinedChannelId<Message> id = getId();
       WebSocketCommand command = new WebSocketCommand();
       command.method = UNSUBSCRIBE;
-      command.params = ImmutableList.of(id.getValue());
+      command.params = List.of(id.getValue());
       command.id = requestIdGenerator.getNextRequestId();
       session.send(command);
       pendingCommandHolder.set(command);

@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.user.spot;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._Order;
 import io.contek.invoker.binancespot.api.common.constants.OrderTypeKeys;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
@@ -14,8 +13,9 @@ import io.contek.invoker.commons.rest.RestParams;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.API_KEY_REST_ORDER_RULE;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.POST;
@@ -108,13 +108,13 @@ public final class PostOrder extends UserRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
-    checkNotNull(side);
+    Objects.requireNonNull(side);
     builder.add("side", side);
 
-    checkNotNull(type);
+    Objects.requireNonNull(type);
     builder.add("type", type);
     if (type.equalsIgnoreCase("LIMIT") && timeInForce == null)
       timeInForce = "GTC";
@@ -158,8 +158,8 @@ public final class PostOrder extends UserRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
-    return ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(1), API_KEY_REST_ORDER_RULE.forPermits(1));
+  protected List<TypedPermitRequest> getRequiredQuotas() {
+    return List.of(IP_REST_REQUEST_RULE.forPermits(1), API_KEY_REST_ORDER_RULE.forPermits(1));
   }
 
   @NotThreadSafe

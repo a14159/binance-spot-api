@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.user.spot;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._Order;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.spot.GetOrder.Response;
@@ -11,17 +10,17 @@ import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.GET;
 
 @NotThreadSafe
 public final class GetOrder extends UserRestRequest<Response> {
 
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(2));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA =
+      List.of(IP_REST_REQUEST_RULE.forPermits(2));
 
   private String symbol;
   private Long orderId;
@@ -65,10 +64,12 @@ public final class GetOrder extends UserRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
-    checkArgument(orderId != null || origClientOrderId != null);
+    if (orderId == null && origClientOrderId == null) {
+      throw new IllegalArgumentException();
+    }
     if (orderId != null) {
       builder.add("orderId", orderId);
     }
@@ -82,7 +83,7 @@ public final class GetOrder extends UserRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return REQUIRED_QUOTA;
   }
 

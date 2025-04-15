@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.user.spot;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._Order;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.spot.GetAllOrders.Response;
@@ -13,9 +12,9 @@ import io.contek.invoker.commons.rest.RestParams;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.GET;
 
@@ -23,8 +22,8 @@ import static io.contek.invoker.commons.rest.RestMethod.GET;
 public final class GetAllOrders extends UserRestRequest<Response> {
 
   public static final int MAX_LIMIT = 1000;
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(10));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA =
+      List.of(IP_REST_REQUEST_RULE.forPermits(10));
 
   private String symbol;
   private Long orderId;
@@ -80,7 +79,7 @@ public final class GetAllOrders extends UserRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
     if (orderId != null) {
@@ -96,7 +95,9 @@ public final class GetAllOrders extends UserRestRequest<Response> {
     }
 
     if (limit != null) {
-      checkArgument(limit <= MAX_LIMIT);
+      if (limit > MAX_LIMIT) {
+        throw new IllegalArgumentException();
+      }
       builder.add("limit", limit);
     }
 
@@ -106,7 +107,7 @@ public final class GetAllOrders extends UserRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return REQUIRED_QUOTA;
   }
 

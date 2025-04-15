@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.user.margin;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._Trade;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.commons.actor.IActor;
@@ -11,17 +10,17 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.GET;
 
 @NotThreadSafe
 public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeList.Response> {
 
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(10));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA =
+      List.of(IP_REST_REQUEST_RULE.forPermits(10));
 
   private String symbol;
   private String orderId;
@@ -71,10 +70,12 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
-    checkArgument(orderId != null || (startTime != 0 && endTime != 0));
+    if (orderId == null && (startTime == 0 || endTime == 0)) {
+      throw new IllegalArgumentException();
+    }
     if (orderId != null)
       builder.add("orderId", orderId);
     if (startTime != 0)
@@ -88,7 +89,7 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return REQUIRED_QUOTA;
   }
 

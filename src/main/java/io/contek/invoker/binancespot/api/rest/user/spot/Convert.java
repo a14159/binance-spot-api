@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.user.spot;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._ConvertResponse;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.spot.Convert.Response;
@@ -12,8 +11,9 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.POST;
 
@@ -68,16 +68,16 @@ public final class Convert extends UserRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(asset);
+    Objects.requireNonNull(asset);
     builder.add("symbol", asset);
 
-    checkNotNull(clientTranId);
+    Objects.requireNonNull(clientTranId);
     builder.add("clientTranId", clientTranId);
 
-    checkNotNull(amount);
+    Objects.requireNonNull(amount);
     builder.add("amount", amount.toPlainString());
 
-    checkNotNull(targetAsset);
+    Objects.requireNonNull(targetAsset);
     builder.add("targetAsset", targetAsset);
 
     builder.add("timestamp", getMillis());
@@ -86,8 +86,8 @@ public final class Convert extends UserRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
-    return ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(5));
+  protected List<TypedPermitRequest> getRequiredQuotas() {
+    return List.of(IP_REST_REQUEST_RULE.forPermits(5));
   }
 
   @NotThreadSafe

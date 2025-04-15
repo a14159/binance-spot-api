@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.market;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._BookTicker;
 import io.contek.invoker.binancespot.api.rest.market.GetTickerBookTicker.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -10,6 +9,7 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+import java.util.List;
 
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
@@ -17,8 +17,8 @@ import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_R
 @NotThreadSafe
 public final class GetTickerBookTicker extends MarketRestRequest<Response> {
 
-  private static final ImmutableList<TypedPermitRequest> ALL_SYMBOLS_REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(2));
+  private static final List<TypedPermitRequest> ALL_SYMBOLS_REQUIRED_QUOTA =
+      List.of(IP_REST_REQUEST_RULE.forPermits(2));
 
   private String symbol;
 
@@ -53,7 +53,7 @@ public final class GetTickerBookTicker extends MarketRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     if (symbol != null) {
       return ONE_REST_REQUEST;
     }

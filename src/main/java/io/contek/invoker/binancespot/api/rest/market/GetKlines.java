@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.market;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._Candlestick;
 import io.contek.invoker.binancespot.api.rest.market.GetKlines.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -11,9 +10,9 @@ import io.contek.invoker.commons.rest.RestParams;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 
 /**
@@ -81,9 +80,9 @@ public final class GetKlines extends MarketRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
-    checkNotNull(interval);
+    Objects.requireNonNull(interval);
     builder.add("interval", interval);
     if (startTime != null) {
       builder.add("startTime", startTime);
@@ -92,7 +91,9 @@ public final class GetKlines extends MarketRestRequest<Response> {
       builder.add("endTime", endTime);
     }
     if (limit != null) {
-      checkArgument(limit <= MAX_LIMIT);
+      if (limit > MAX_LIMIT) {
+        throw new IllegalArgumentException();
+      }
       builder.add("limit", limit);
     }
 
@@ -100,7 +101,7 @@ public final class GetKlines extends MarketRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return ONE_REST_REQUEST;
   }
 

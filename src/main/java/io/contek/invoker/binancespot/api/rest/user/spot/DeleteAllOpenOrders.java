@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.user.spot;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._Order;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.spot.DeleteAllOpenOrders.Response;
@@ -12,8 +11,9 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 import static io.contek.invoker.commons.rest.RestMethod.DELETE;
 
@@ -50,7 +50,7 @@ public final class DeleteAllOpenOrders extends UserRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
     builder.add("timestamp", getMillis());
@@ -59,7 +59,7 @@ public final class DeleteAllOpenOrders extends UserRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return ONE_REST_REQUEST;
   }
 

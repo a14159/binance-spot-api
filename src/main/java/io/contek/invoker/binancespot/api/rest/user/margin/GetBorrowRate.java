@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.user.margin;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._BorrowRate;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.margin.GetBorrowRate.Response;
@@ -13,6 +12,7 @@ import io.contek.invoker.commons.rest.RestParams;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
+import java.util.List;
 
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
@@ -21,8 +21,8 @@ import static io.contek.invoker.commons.rest.RestMethod.GET;
 @NotThreadSafe
 public final class GetBorrowRate extends UserRestRequest<Response> {
 
-  private static final ImmutableList<TypedPermitRequest> ALL_SYMBOLS_REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(5));
+  private static final List<TypedPermitRequest> ALL_SYMBOLS_REQUIRED_QUOTA =
+      List.of(IP_REST_REQUEST_RULE.forPermits(5));
 
   private String coin;
 
@@ -64,7 +64,7 @@ public final class GetBorrowRate extends UserRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     if (coin != null) {
       return ONE_REST_REQUEST;
     }

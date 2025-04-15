@@ -1,7 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.market;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSortedSet;
 import io.contek.invoker.binancespot.api.common._OrderBook;
 import io.contek.invoker.binancespot.api.rest.market.GetDepth.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -11,26 +9,25 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+import java.util.*;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 
 @NotThreadSafe
 public final class GetDepth extends MarketRestRequest<Response> {
 
-  public static final ImmutableSortedSet<Integer> SUPPORTED_LIMITS =
-      ImmutableSortedSet.of(5, 10, 20, 50, 100, 500, 1000, 5000);
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA_50 =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(2));
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA_100 =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(5));
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA_500 =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(10));
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA_1000 =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(20));
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA_5000 =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(50));
+  public static final SortedSet<Integer> SUPPORTED_LIMITS =
+          new TreeSet<>(Set.of(5, 10, 20, 50, 100, 500, 1000, 5000));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA_50 =
+      List.of(IP_REST_REQUEST_RULE.forPermits(2));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA_100 =
+      List.of(IP_REST_REQUEST_RULE.forPermits(5));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA_500 =
+      List.of(IP_REST_REQUEST_RULE.forPermits(10));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA_1000 =
+      List.of(IP_REST_REQUEST_RULE.forPermits(20));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA_5000 =
+      List.of(IP_REST_REQUEST_RULE.forPermits(50));
 
   private String symbol;
   private Integer limit;
@@ -63,11 +60,13 @@ public final class GetDepth extends MarketRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
     if (limit != null) {
-      checkArgument(SUPPORTED_LIMITS.contains(limit));
+      if (!SUPPORTED_LIMITS.contains(limit)) {
+        throw new IllegalArgumentException();
+      }
       builder.add("limit", limit);
     }
 
@@ -75,7 +74,7 @@ public final class GetDepth extends MarketRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     int limit = this.limit != null ? this.limit : 500;
     if (limit <= 50) {
       return REQUIRED_QUOTA_50;

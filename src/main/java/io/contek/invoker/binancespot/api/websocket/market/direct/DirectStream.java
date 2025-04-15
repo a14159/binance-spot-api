@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.websocket.market.direct;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.websocket.common.WebSocketEventData;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
@@ -8,6 +7,7 @@ import io.contek.invoker.commons.websocket.*;
 import io.contek.invoker.security.ICredential;
 
 import javax.annotation.concurrent.ThreadSafe;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_WEB_SOCKET_CONNECTION;
@@ -33,7 +33,7 @@ abstract class DirectStream<Data extends WebSocketEventData> extends BaseWebSock
   }
 
   @Override
-  protected final ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected final List<TypedPermitRequest> getRequiredQuotas() {
     return ONE_WEB_SOCKET_CONNECTION;
   }
 

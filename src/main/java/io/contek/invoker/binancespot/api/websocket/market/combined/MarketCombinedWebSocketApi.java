@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.websocket.market.combined;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.websocket.WebSocketRequestIdGenerator;
 import io.contek.invoker.binancespot.api.websocket.market.IMarketWebSocketApi;
 import io.contek.invoker.commons.actor.IActor;
@@ -11,6 +10,7 @@ import io.contek.invoker.security.ICredential;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_WEB_SOCKET_CONNECTION;
@@ -110,7 +110,7 @@ public final class MarketCombinedWebSocketApi extends BaseWebSocketApi
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return ONE_WEB_SOCKET_CONNECTION;
   }
 

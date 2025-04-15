@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.user.spot;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._Order;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.spot.GetOpenOrders.Response;
@@ -13,6 +12,7 @@ import io.contek.invoker.commons.rest.RestParams;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
+import java.util.List;
 
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.GET;
@@ -20,10 +20,10 @@ import static io.contek.invoker.commons.rest.RestMethod.GET;
 @NotThreadSafe
 public final class GetOpenOrders extends UserRestRequest<Response> {
 
-  private static final ImmutableList<TypedPermitRequest> SINGLE_SYMBOL_REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(3));
-  private static final ImmutableList<TypedPermitRequest> ALL_SYMBOLS_REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(40));
+  private static final List<TypedPermitRequest> SINGLE_SYMBOL_REQUIRED_QUOTA =
+      List.of(IP_REST_REQUEST_RULE.forPermits(3));
+  private static final List<TypedPermitRequest> ALL_SYMBOLS_REQUIRED_QUOTA =
+      List.of(IP_REST_REQUEST_RULE.forPermits(40));
 
   private String symbol;
 
@@ -65,7 +65,7 @@ public final class GetOpenOrders extends UserRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return symbol != null ? SINGLE_SYMBOL_REQUIRED_QUOTA : ALL_SYMBOLS_REQUIRED_QUOTA;
   }
 

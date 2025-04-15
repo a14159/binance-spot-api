@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.market;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._AggTrade;
 import io.contek.invoker.binancespot.api.rest.market.GetAggregatedTrades.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -10,8 +9,9 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 
 @NotThreadSafe
@@ -62,7 +62,7 @@ public final class GetAggregatedTrades extends MarketRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
     if (startTime != 0)
@@ -77,7 +77,7 @@ public final class GetAggregatedTrades extends MarketRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
 
     return ONE_REST_REQUEST;
   }

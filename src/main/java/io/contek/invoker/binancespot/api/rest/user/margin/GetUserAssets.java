@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.user.margin;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._SpotAsset;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.commons.actor.IActor;
@@ -11,6 +10,7 @@ import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
+import java.util.List;
 
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.POST;
@@ -18,8 +18,8 @@ import static io.contek.invoker.commons.rest.RestMethod.POST;
 @NotThreadSafe
 public final class GetUserAssets extends UserRestRequest<GetUserAssets.Response> {
 
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(5));
+  private static final List<TypedPermitRequest> REQUIRED_QUOTA =
+      List.of(IP_REST_REQUEST_RULE.forPermits(5));
 
   private String asset;
 
@@ -60,7 +60,7 @@ public final class GetUserAssets extends UserRestRequest<GetUserAssets.Response>
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return REQUIRED_QUOTA;
   }
 

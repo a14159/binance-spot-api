@@ -1,7 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.user.spot;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.spot.PostSpotListenKey.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -11,6 +9,8 @@ import io.contek.invoker.security.ICredential;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.annotation.concurrent.ThreadSafe;
+import java.util.List;
+import java.util.Map;
 
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 import static io.contek.invoker.commons.rest.RestMediaType.FORM;
@@ -49,7 +49,7 @@ public final class PostSpotListenKey extends UserRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     return ONE_REST_REQUEST;
   }
 
@@ -65,13 +65,11 @@ public final class PostSpotListenKey extends UserRestRequest<Response> {
             .build();
   }
 
-  private ImmutableMap<String, String> buildHeaders(ICredential credential) {
+  private Map<String, String> buildHeaders(ICredential credential) {
     if (credential.isAnonymous()) {
-      return ImmutableMap.of();
+      return Map.of();
     }
-    return ImmutableMap.<String, String>builder()
-            .put(X_MBX_API_KEY, credential.getApiKeyId())
-            .build();
+    return Map.of(X_MBX_API_KEY, credential.getApiKeyId());
   }
   // end ugly hack
 

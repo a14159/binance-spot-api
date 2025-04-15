@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.user.margin;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._OrderResult;
 import io.contek.invoker.binancespot.api.common.constants.OrderTypeKeys;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
@@ -14,8 +13,9 @@ import io.contek.invoker.commons.rest.RestParams;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.API_KEY_REST_ORDER_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.POST;
 
@@ -112,13 +112,13 @@ public final class PostOrder extends UserRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
-    checkNotNull(side);
+    Objects.requireNonNull(side);
     builder.add("side", side);
 
-    checkNotNull(type);
+    Objects.requireNonNull(type);
     builder.add("type", type);
 
     if (quantity != null) {
@@ -164,8 +164,8 @@ public final class PostOrder extends UserRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
-    return ImmutableList.of(API_KEY_REST_ORDER_RULE.forPermits(6));
+  protected List<TypedPermitRequest> getRequiredQuotas() {
+    return List.of(API_KEY_REST_ORDER_RULE.forPermits(6));
   }
 
   @NotThreadSafe

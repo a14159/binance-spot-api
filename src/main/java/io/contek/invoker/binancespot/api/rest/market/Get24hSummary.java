@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.market;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._MiniTickerSummary;
 import io.contek.invoker.binancespot.api.rest.market.Get24hSummary.Response;
 import io.contek.invoker.commons.actor.IActor;
@@ -9,16 +8,17 @@ import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
+import java.util.List;
+import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 
 @NotThreadSafe
 public final class Get24hSummary extends MarketRestRequest<Response> {
 
-  private static final ImmutableList<TypedPermitRequest> REQUIRED_MAX_QUOTA =
-      ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(40));
+  private static final List<TypedPermitRequest> REQUIRED_MAX_QUOTA =
+      List.of(IP_REST_REQUEST_RULE.forPermits(40));
 
   private String symbol;
 
@@ -45,7 +45,7 @@ public final class Get24hSummary extends MarketRestRequest<Response> {
   protected RestParams getParams() {
     RestParams.Builder builder = RestParams.newBuilder();
 
-    checkNotNull(symbol);
+    Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
     builder.add("type", "MINI");
@@ -54,7 +54,7 @@ public final class Get24hSummary extends MarketRestRequest<Response> {
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
+  protected List<TypedPermitRequest> getRequiredQuotas() {
     if (symbol != null)
       return ONE_REST_REQUEST;
 

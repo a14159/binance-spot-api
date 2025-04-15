@@ -1,12 +1,12 @@
 package io.contek.invoker.binancespot.api.rest;
 
-import com.google.common.collect.ImmutableMap;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.http.AnyHttpException;
 import io.contek.invoker.commons.rest.*;
 import io.contek.invoker.security.ICredential;
 
 import javax.annotation.concurrent.ThreadSafe;
+import java.util.Map;
 
 import static io.contek.invoker.commons.rest.RestMediaType.FORM;
 
@@ -57,13 +57,11 @@ public abstract class RestRequest<R> extends BaseRestRequest<R> {
   @Override
   protected final void checkResult(R result, RestResponse response) throws AnyHttpException {}
 
-  private ImmutableMap<String, String> buildHeaders(ICredential credential) {
+  private Map<String, String> buildHeaders(ICredential credential) {
     if (credential.isAnonymous()) {
-      return ImmutableMap.of();
+      return Map.of();
     }
-    return ImmutableMap.<String, String>builder()
-        .put(X_MBX_API_KEY, credential.getApiKeyId())
-        .build();
+    return Map.of(X_MBX_API_KEY, credential.getApiKeyId());
   }
 
   private String buildUrlWithParams(ICredential credential) {

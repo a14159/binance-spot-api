@@ -1,11 +1,11 @@
 package io.contek.invoker.binancespot.api.websocket;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.websocket.*;
 
 import javax.annotation.concurrent.ThreadSafe;
+import java.util.List;
 
 @ThreadSafe
 public abstract class WebSocketApi extends BaseWebSocketApi {
@@ -15,8 +15,8 @@ public abstract class WebSocketApi extends BaseWebSocketApi {
   }
 
   @Override
-  protected final ImmutableList<TypedPermitRequest> getRequiredQuotas() {
-    return ImmutableList.of();
+  protected final List<TypedPermitRequest> getRequiredQuotas() {
+    return List.of();
   }
 
   @Override

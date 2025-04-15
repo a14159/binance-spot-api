@@ -1,6 +1,5 @@
 package io.contek.invoker.binancespot.api.rest.user.margin;
 
-import com.google.common.collect.ImmutableList;
 import io.contek.invoker.binancespot.api.common._NextHourRate;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.commons.actor.IActor;
@@ -73,8 +72,8 @@ public final class GetNextHourBorrowRate extends UserRestRequest<GetNextHourBorr
   }
 
   @Override
-  protected ImmutableList<TypedPermitRequest> getRequiredQuotas() {
-    return ImmutableList.of(IP_REST_REQUEST_RULE.forPermits(100));
+  protected List<TypedPermitRequest> getRequiredQuotas() {
+    return List.of(IP_REST_REQUEST_RULE.forPermits(100));
   }
 
   @NotThreadSafe
