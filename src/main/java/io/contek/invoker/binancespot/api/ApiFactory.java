@@ -25,7 +25,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import java.time.Duration;
 import java.util.List;
 
-import static com.google.common.io.BaseEncoding.base16;
+import static removing.dependencies.BaseEncoding.base16;
 import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.*;
 import static io.contek.invoker.commons.actor.ratelimit.LimitType.API_KEY;
 import static io.contek.invoker.commons.actor.ratelimit.LimitType.IP;
