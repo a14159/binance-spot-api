@@ -3,17 +3,14 @@ package io.contek.invoker.binancespot.api.rest.market;
 import io.contek.invoker.binancespot.api.common._Candlestick;
 import io.contek.invoker.binancespot.api.rest.market.GetKlines.Response;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 
 /**
  * Default {@code limit} is 500. Time filters are inclusive.
@@ -98,11 +95,6 @@ public final class GetKlines extends MarketRestRequest<Response> {
     }
 
     return builder.build();
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    return ONE_REST_REQUEST;
   }
 
   @NotThreadSafe

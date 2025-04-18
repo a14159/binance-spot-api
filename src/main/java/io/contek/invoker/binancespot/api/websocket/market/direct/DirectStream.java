@@ -2,15 +2,11 @@ package io.contek.invoker.binancespot.api.websocket.market.direct;
 
 import io.contek.invoker.binancespot.api.websocket.common.WebSocketEventData;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.websocket.*;
 import io.contek.invoker.security.ICredential;
 
 import javax.annotation.concurrent.ThreadSafe;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_WEB_SOCKET_CONNECTION;
 
 @ThreadSafe
 abstract class DirectStream<Data extends WebSocketEventData> extends BaseWebSocketApi {
@@ -30,11 +26,6 @@ abstract class DirectStream<Data extends WebSocketEventData> extends BaseWebSock
     this.id = id;
     this.context = context;
     channel = new MarketWebSocketDirectChannel<>(id);
-  }
-
-  @Override
-  protected final List<TypedPermitRequest> getRequiredQuotas() {
-    return ONE_WEB_SOCKET_CONNECTION;
   }
 
   @Override

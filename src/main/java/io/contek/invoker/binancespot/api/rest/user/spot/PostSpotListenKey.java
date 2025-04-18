@@ -3,16 +3,13 @@ package io.contek.invoker.binancespot.api.rest.user.spot;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.spot.PostSpotListenKey.Response;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.*;
 import io.contek.invoker.security.ICredential;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.annotation.concurrent.ThreadSafe;
-import java.util.List;
 import java.util.Map;
 
-import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 import static io.contek.invoker.commons.rest.RestMediaType.FORM;
 import static io.contek.invoker.commons.rest.RestMethod.POST;
 
@@ -46,11 +43,6 @@ public final class PostSpotListenKey extends UserRestRequest<Response> {
   @Override
   protected RestParams getParams() {
     return RestParams.empty();
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    return ONE_REST_REQUEST;
   }
 
   // ugly hack to prevent RestRequest to add a signature to the request

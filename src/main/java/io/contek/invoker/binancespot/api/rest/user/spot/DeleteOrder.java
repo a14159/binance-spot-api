@@ -4,16 +4,13 @@ import io.contek.invoker.binancespot.api.common._Order;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.spot.DeleteOrder.Response;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.util.List;
 import java.util.Objects;
 
-import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 import static io.contek.invoker.commons.rest.RestMethod.DELETE;
 
 @NotThreadSafe
@@ -86,11 +83,6 @@ public final class DeleteOrder extends UserRestRequest<Response> {
     builder.add("timestamp", getMillis());
 
     return builder.build();
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    return ONE_REST_REQUEST;
   }
 
   @NotThreadSafe

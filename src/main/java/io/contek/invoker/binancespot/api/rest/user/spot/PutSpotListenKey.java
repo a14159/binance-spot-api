@@ -3,16 +3,13 @@ package io.contek.invoker.binancespot.api.rest.user.spot;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.binancespot.api.rest.user.spot.PutSpotListenKey.Response;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.util.List;
 import java.util.Objects;
 
-import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_REST_REQUEST;
 import static io.contek.invoker.commons.rest.RestMethod.PUT;
 
 @NotThreadSafe
@@ -52,11 +49,6 @@ public final class PutSpotListenKey extends UserRestRequest<Response> {
     builder.add("listenKey", listenKey);
 
     return builder.build();
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    return ONE_REST_REQUEST;
   }
 
   @NotThreadSafe

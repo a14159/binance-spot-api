@@ -3,7 +3,6 @@ package io.contek.invoker.binancespot.api.rest.user.margin;
 import io.contek.invoker.binancespot.api.common._NextHourRate;
 import io.contek.invoker.binancespot.api.rest.user.UserRestRequest;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
@@ -13,7 +12,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.IP_REST_REQUEST_RULE;
 import static io.contek.invoker.commons.rest.RestMethod.GET;
 
 @NotThreadSafe
@@ -69,11 +67,6 @@ public final class GetNextHourBorrowRate extends UserRestRequest<GetNextHourBorr
     builder.add("timestamp", getMillis());
 
     return builder.build();
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    return List.of(IP_REST_REQUEST_RULE.forPermits(100));
   }
 
   @NotThreadSafe

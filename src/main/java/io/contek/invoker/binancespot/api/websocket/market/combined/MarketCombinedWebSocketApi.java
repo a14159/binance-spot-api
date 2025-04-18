@@ -3,17 +3,13 @@ package io.contek.invoker.binancespot.api.websocket.market.combined;
 import io.contek.invoker.binancespot.api.websocket.WebSocketRequestIdGenerator;
 import io.contek.invoker.binancespot.api.websocket.market.IMarketWebSocketApi;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.websocket.*;
 import io.contek.invoker.security.ICredential;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_WEB_SOCKET_CONNECTION;
 
 @ThreadSafe
 public final class MarketCombinedWebSocketApi extends BaseWebSocketApi
@@ -107,11 +103,6 @@ public final class MarketCombinedWebSocketApi extends BaseWebSocketApi
   @Override
   protected WebSocketCall createCall(ICredential credential) {
     return WebSocketCall.fromUrl(context.getBaseUrl() + "/stream");
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    return ONE_WEB_SOCKET_CONNECTION;
   }
 
   @Override

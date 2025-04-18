@@ -2,14 +2,11 @@ package io.contek.invoker.binancespot.api.websocket.user;
 
 import io.contek.invoker.binancespot.api.rest.user.spot.UserSpotRestApi;
 import io.contek.invoker.commons.actor.IActor;
-import io.contek.invoker.commons.actor.ratelimit.TypedPermitRequest;
 import io.contek.invoker.commons.websocket.*;
 import io.contek.invoker.security.ICredential;
 
 import javax.annotation.concurrent.ThreadSafe;
-import java.util.List;
 
-import static io.contek.invoker.binancespot.api.ApiFactory.RateLimits.ONE_WEB_SOCKET_CONNECTION;
 
 @ThreadSafe
 public final class SpotUserWebSocketApi extends BaseWebSocketApi {
@@ -59,11 +56,6 @@ public final class SpotUserWebSocketApi extends BaseWebSocketApi {
     SpotUserWebSocketLiveKeeper liveKeeper = (SpotUserWebSocketLiveKeeper) getLiveKeeper();
     String listenKey = liveKeeper.init();
     return WebSocketCall.fromUrl(context.getBaseUrl() + "/ws/" + listenKey);
-  }
-
-  @Override
-  protected List<TypedPermitRequest> getRequiredQuotas() {
-    return ONE_WEB_SOCKET_CONNECTION;
   }
 
   @Override
