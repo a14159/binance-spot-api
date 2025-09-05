@@ -1,7 +1,6 @@
 package io.contek.invoker.binancespot.api.common;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.math.BigDecimal;
 
 @NotThreadSafe
 public class _OrderResult {
@@ -10,10 +9,10 @@ public class _OrderResult {
   public String orderId;
   public String clientOrderId;
   public long transactTime;
-  public BigDecimal price;
-  public BigDecimal origQty;
-  public BigDecimal executedQty;
-  public BigDecimal cummulativeQuoteQty;
+  public Double price;
+  public Double origQty;
+  public Double executedQty;
+  public Double cummulativeQuoteQty;
   public String status;
   public String timeInForce;
   public String type;

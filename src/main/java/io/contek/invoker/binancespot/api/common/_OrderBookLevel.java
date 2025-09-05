@@ -1,16 +1,15 @@
 package io.contek.invoker.binancespot.api.common;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 @NotThreadSafe
-public final class _OrderBookLevel extends ArrayList<BigDecimal> {
-    public BigDecimal getPrice() {
+public final class _OrderBookLevel extends ArrayList<Double> {
+    public Double getPrice() {
         return get(0);
     }
 
-    public BigDecimal getQty() {
+    public Double getQty() {
         return get(1);
     }
 }

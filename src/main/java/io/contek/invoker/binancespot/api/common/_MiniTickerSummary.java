@@ -1,18 +1,17 @@
 package io.contek.invoker.binancespot.api.common;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.math.BigDecimal;
 
 @NotThreadSafe
 public class _MiniTickerSummary {
 
   public String symbol;
-  public BigDecimal openPrice;
-  public BigDecimal highPrice;
-  public BigDecimal lowPrice;
-  public BigDecimal lastPrice;
-  public BigDecimal volume;
-  public BigDecimal quoteVolume;
+  public Double openPrice;
+  public Double highPrice;
+  public Double lowPrice;
+  public Double lastPrice;
+  public Double volume;
+  public Double quoteVolume;
   public long openTime;
   public long closeTime;
   public long firstId;

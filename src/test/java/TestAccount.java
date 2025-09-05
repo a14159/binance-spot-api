@@ -9,7 +9,6 @@ import io.contek.invoker.binancespot.api.rest.user.margin.UserMarginRestApi;
 import io.contek.invoker.binancespot.api.rest.user.spot.*;
 import io.contek.invoker.security.ApiKey;
 
-import java.math.BigDecimal;
 
 public class TestAccount {
 
@@ -23,7 +22,7 @@ public class TestAccount {
         System.out.println("Maker commission: " + account.makerCommission);
         System.out.println("Taker commission: " + account.takerCommission);
         for (_AccountBalance b : account.balances) {
-            if (b.free.compareTo(BigDecimal.ZERO) > 0) {
+            if (b.free.compareTo(0.0) > 0) {
                 System.out.println();
                 System.out.println("Coin: " + b.asset);
                 System.out.println("Free: " + b.free);
@@ -59,7 +58,7 @@ public class TestAccount {
         System.out.println("Margin account - margin level: " + marginAccount.marginLevel);
         System.out.println("Margin account - total net assets: " + marginAccount.totalNetAssetOfBtc);
         for (_MarginAsset asset : marginAccount.userAssets) {
-            if (asset.netAsset.compareTo(BigDecimal.ZERO) > 0) {
+            if (asset.netAsset.compareTo(0.0) > 0) {
                 System.out.println();
                 System.out.println("Coin: " + asset.asset);
                 System.out.println("Net qty: " + asset.netAsset);
@@ -71,7 +70,7 @@ public class TestAccount {
         System.out.println("Cross wallet - asset: " + crossWallet.asset);
         System.out.println("Cross wallet - total collateral: " + crossWallet.totalCrossCollateral);
         for (_CrossCollateral asset : crossWallet.crossCollaterals) {
-            if (asset.loanAmount.compareTo(BigDecimal.ZERO) > 0) {
+            if (asset.loanAmount.compareTo(0.0) > 0) {
                 System.out.println();
                 System.out.println("Loan coin: " + asset.loanCoin);
                 System.out.println("Loan amount: " + asset.loanAmount);

@@ -1,14 +1,13 @@
 package io.contek.invoker.binancespot.api.common;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.math.BigDecimal;
 
 @NotThreadSafe
 public class _AggTrade {
 
   public long a; // agg trade id
-  public BigDecimal p; // price
-  public BigDecimal q; // qty
+  public Double p; // price
+  public Double q; // qty
   public long f; // first trade id
   public long l; // last trade id
   public long T; // timestamp

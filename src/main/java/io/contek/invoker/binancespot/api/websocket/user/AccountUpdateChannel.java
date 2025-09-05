@@ -7,7 +7,6 @@ import io.contek.invoker.binancespot.api.websocket.user.constants.UserEventTypeK
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.annotation.concurrent.ThreadSafe;
-import java.math.BigDecimal;
 import java.util.List;
 
 @ThreadSafe
@@ -43,7 +42,7 @@ public final class AccountUpdateChannel extends UserWebSocketChannel<AccountUpda
     public static final class BalanceUpdate {
 
         public String a; // asset
-        public BigDecimal f; // free
-        public BigDecimal l; // Locked
+        public Double f; // free
+        public Double l; // Locked
     }
 }

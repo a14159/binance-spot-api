@@ -1,16 +1,15 @@
 package io.contek.invoker.binancespot.api.common;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.math.BigDecimal;
 
 @NotThreadSafe
 public class _SpotAsset {
 
   public String asset;
-  public BigDecimal free;
-  public BigDecimal locked;
-  public BigDecimal freeze;
-  public BigDecimal withdrawing;
-  public BigDecimal ipoable;
-  public BigDecimal btcValuation;
+  public Double free;
+  public Double locked;
+  public Double freeze;
+  public Double withdrawing;
+  public Double ipoable;
+  public Double btcValuation;
 }

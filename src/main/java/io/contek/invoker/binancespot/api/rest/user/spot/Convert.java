@@ -9,7 +9,6 @@ import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 import static io.contek.invoker.commons.rest.RestMethod.POST;
@@ -19,7 +18,7 @@ public final class Convert extends UserRestRequest<Response> {
 
   private String clientTranId;
   private String asset;
-  private BigDecimal amount;
+  private String amount;
   private String targetAsset;
 
   Convert(IActor actor, RestContext context) {
@@ -36,7 +35,7 @@ public final class Convert extends UserRestRequest<Response> {
     return this;
   }
 
-  public Convert setAmount(BigDecimal amount) {
+  public Convert setAmount(String amount) {
     this.amount = amount;
     return this;
   }
@@ -72,7 +71,7 @@ public final class Convert extends UserRestRequest<Response> {
     builder.add("clientTranId", clientTranId);
 
     Objects.requireNonNull(amount);
-    builder.add("amount", amount.toPlainString());
+    builder.add("amount", amount);
 
     Objects.requireNonNull(targetAsset);
     builder.add("targetAsset", targetAsset);
