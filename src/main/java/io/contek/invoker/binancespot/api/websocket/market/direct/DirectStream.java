@@ -1,5 +1,6 @@
 package io.contek.invoker.binancespot.api.websocket.market.direct;
 
+import io.contek.invoker.binancespot.api.websocket.common.ServerShutdownEvent;
 import io.contek.invoker.binancespot.api.websocket.common.WebSocketEventData;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.websocket.*;
@@ -34,7 +35,11 @@ abstract class DirectStream<Data extends WebSocketEventData> extends BaseWebSock
   }
 
   @Override
-  protected void checkErrorMessage(AnyWebSocketMessage message) throws WebSocketRuntimeException {}
+  protected void checkErrorMessage(AnyWebSocketMessage message) throws WebSocketRuntimeException {
+    if (message instanceof ServerShutdownEvent) {
+      throw new WebSocketServerRestartException();
+    }
+  }
 
   MarketWebSocketDirectChannel<Data> getChannel() {
     if (!attached.get()) {

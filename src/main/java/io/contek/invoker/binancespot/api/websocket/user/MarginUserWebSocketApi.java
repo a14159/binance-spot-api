@@ -1,6 +1,8 @@
 package io.contek.invoker.binancespot.api.websocket.user;
 
 import io.contek.invoker.binancespot.api.rest.user.margin.UserMarginRestApi;
+import io.contek.invoker.binancespot.api.websocket.common.ServerShutdownEvent;
+import io.contek.invoker.binancespot.api.websocket.user.constants.UserEventTypeKeys;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.websocket.*;
 import io.contek.invoker.security.ICredential;
@@ -59,5 +61,13 @@ public final class MarginUserWebSocketApi extends BaseWebSocketApi {
   }
 
   @Override
-  protected void checkErrorMessage(AnyWebSocketMessage message) throws WebSocketRuntimeException {}
+  protected void checkErrorMessage(AnyWebSocketMessage message) throws WebSocketRuntimeException {
+    if (message instanceof ServerShutdownEvent) {
+      throw new WebSocketServerRestartException();
+    }
+    if (message instanceof UserControlEvent event
+        && UserEventTypeKeys._listenKeyExpired.equals(event.e)) {
+      throw new WebSocketSessionExpiredException();
+    }
+  }
 }

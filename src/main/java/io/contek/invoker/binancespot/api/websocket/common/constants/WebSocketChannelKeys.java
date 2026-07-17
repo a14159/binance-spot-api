@@ -2,6 +2,7 @@ package io.contek.invoker.binancespot.api.websocket.common.constants;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import java.util.Locale;
 
 import static java.lang.String.format;
 
@@ -53,9 +54,9 @@ public final class WebSocketChannelKeys {
 
   public static String channel(String symbol, String topic, @Nullable String interval) {
     if (interval != null) {
-      return symbol + "@" + topic + "@" + interval;
+      return symbol.toLowerCase(Locale.ROOT) + "@" + topic + "@" + interval;
     }
-    return symbol + "@" + topic;
+    return symbol.toLowerCase(Locale.ROOT) + "@" + topic;
   }
 
   private WebSocketChannelKeys() {}

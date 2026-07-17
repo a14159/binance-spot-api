@@ -59,12 +59,4 @@ public final class UserSpotRestApi {
   public Convert convert() {
     return new Convert(actor, context);
   }
-
-  public PostSpotListenKey postSpotListenKey() {
-    return new PostSpotListenKey(actor, context);
-  }
-
-  public PutSpotListenKey putSpotListenKey() {
-    return new PutSpotListenKey(actor, context);
-  }
 }

@@ -2,6 +2,7 @@ package io.contek.invoker.binancespot.api.websocket.market.combined;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import io.contek.invoker.binancespot.api.websocket.common.ServerShutdownEvent;
 import io.contek.invoker.binancespot.api.websocket.market.BookTickerEvent;
 import io.contek.invoker.commons.websocket.AnyWebSocketMessage;
 import io.contek.invoker.commons.websocket.IWebSocketComponent;
@@ -24,7 +25,7 @@ final class MarketCombinedMessageParser extends WebSocketTextMessageParser {
   @Override
   protected AnyWebSocketMessage fromText(String text) {
     JSONObject json = JSON.parseObject(text);
-    if (json.containsKey("id")) {
+    if (json.containsKey("id") || json.containsKey("code")) {
       return toRequestConfirmation(json);
     }
     if (json.containsKey("stream")) {
@@ -39,6 +40,9 @@ final class MarketCombinedMessageParser extends WebSocketTextMessageParser {
 
   private AnyWebSocketMessage toStreamData(JSONObject obj) {
     String stream = obj.get("stream").toString();
+    if ("!serverShutdown".equals(stream)) {
+      return obj.getJSONObject("data").toJavaObject(ServerShutdownEvent.class);
+    }
     String[] parts = stream.split("@");
     if (parts.length < 2) {
       throw new IllegalArgumentException(stream);

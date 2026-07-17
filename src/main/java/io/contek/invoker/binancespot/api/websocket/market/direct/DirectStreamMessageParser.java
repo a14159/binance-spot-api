@@ -1,6 +1,7 @@
 package io.contek.invoker.binancespot.api.websocket.market.direct;
 
 import com.alibaba.fastjson2.JSON;
+import io.contek.invoker.binancespot.api.websocket.common.ServerShutdownEvent;
 import io.contek.invoker.commons.websocket.AnyWebSocketMessage;
 import io.contek.invoker.commons.websocket.IWebSocketComponent;
 import io.contek.invoker.commons.websocket.WebSocketTextMessageParser;
@@ -22,6 +23,9 @@ final class DirectStreamMessageParser<T extends AnyWebSocketMessage>
 
   @Override
   protected AnyWebSocketMessage fromText(String text) {
+    if (text.contains("\"serverShutdown\"")) {
+      return JSON.parseObject(text, ServerShutdownEvent.class);
+    }
     return JSON.parseObject(text, type);
   }
 }

@@ -1,6 +1,7 @@
 package io.contek.invoker.binancespot.api.websocket.market.combined;
 
 import io.contek.invoker.binancespot.api.websocket.WebSocketRequestIdGenerator;
+import io.contek.invoker.binancespot.api.websocket.common.ServerShutdownEvent;
 import io.contek.invoker.binancespot.api.websocket.market.IMarketWebSocketApi;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.websocket.*;
@@ -106,5 +107,12 @@ public final class MarketCombinedWebSocketApi extends BaseWebSocketApi
   }
 
   @Override
-  protected void checkErrorMessage(AnyWebSocketMessage message) throws WebSocketRuntimeException {}
+  protected void checkErrorMessage(AnyWebSocketMessage message) throws WebSocketRuntimeException {
+    if (message instanceof ServerShutdownEvent) {
+      throw new WebSocketServerRestartException();
+    }
+    if (message instanceof WebSocketCommandConfirmation response && response.msg != null) {
+      throw new WebSocketIllegalStateException(response.code + ": " + response.msg);
+    }
+  }
 }

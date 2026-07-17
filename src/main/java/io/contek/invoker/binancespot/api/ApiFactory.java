@@ -29,14 +29,19 @@ public final class ApiFactory {
   public static final ApiContext MAIN_NET_CONTEXT =
       ApiContext.newBuilder()
           .setRestContext(RestContext.forBaseUrl("https://api.binance.com"))
-          .setWebSocketContext(WebSocketContext.forBaseUrl("wss://stream.binance.com"))
+          .setWebSocketContext(WebSocketContext.forBaseUrl("wss://stream.binance.com:443"))
           .build();
 
   public static final ApiContext TEST_NET_CONTEXT =
       ApiContext.newBuilder()
           .setRestContext(RestContext.forBaseUrl("https://testnet.binance.vision"))
-          .setWebSocketContext(WebSocketContext.forBaseUrl("wss://testnet.binance.vision"))
+          .setWebSocketContext(WebSocketContext.forBaseUrl("wss://stream.testnet.binance.vision"))
           .build();
+
+  private static final WebSocketContext MAIN_NET_WEBSOCKET_API_CONTEXT =
+      WebSocketContext.forBaseUrl("wss://ws-api.binance.com:443/ws-api/v3");
+  private static final WebSocketContext TEST_NET_WEBSOCKET_API_CONTEXT =
+      WebSocketContext.forBaseUrl("wss://ws-api.testnet.binance.vision/ws-api/v3");
 
   private final ApiContext context;
   private final IActorFactory actorFactory;
@@ -118,11 +123,9 @@ public final class ApiFactory {
     }
 
     public SpotUserWebSocketApi userSpot(ApiKey apiKey) {
-      WebSocketContext wsContext = context.getWebSocketContext();
+      WebSocketContext wsContext = getSpotWebSocketApiContext();
       IActor actor = actorFactory.create(apiKey, wsContext);
-      RestContext restContext = context.getRestContext();
-      return new SpotUserWebSocketApi(
-          actor, context.getWebSocketContext(), new UserSpotRestApi(actor, restContext));
+      return new SpotUserWebSocketApi(actor, wsContext);
     }
 
     public MarginUserWebSocketApi userMargin(ApiKey apiKey) {
@@ -131,6 +134,18 @@ public final class ApiFactory {
       RestContext restContext = context.getRestContext();
       return new MarginUserWebSocketApi(
               actor, context.getWebSocketContext(), new UserMarginRestApi(actor, restContext));
+    }
+
+    private WebSocketContext getSpotWebSocketApiContext() {
+      String baseUrl = context.getWebSocketContext().getBaseUrl();
+      if (baseUrl.startsWith("wss://stream.binance.com")) {
+        return MAIN_NET_WEBSOCKET_API_CONTEXT;
+      }
+      if (baseUrl.equals("wss://testnet.binance.vision")
+          || baseUrl.equals("wss://stream.testnet.binance.vision")) {
+        return TEST_NET_WEBSOCKET_API_CONTEXT;
+      }
+      return context.getWebSocketContext();
     }
   }
 }
