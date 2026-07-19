@@ -12,7 +12,7 @@ import io.contek.invoker.commons.ApiContext;
 import io.contek.invoker.commons.actor.IActor;
 import io.contek.invoker.commons.actor.IActorFactory;
 import io.contek.invoker.commons.actor.SimpleActorFactory;
-import io.contek.invoker.commons.actor.http.SimpleHttpClientFactory;
+import io.contek.invoker.commons.actor.http.HttpClientFactory;
 import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.websocket.WebSocketContext;
 import io.contek.invoker.security.ApiKey;
@@ -74,7 +74,7 @@ public final class ApiFactory {
   private static SimpleActorFactory createActorFactory() {
     return SimpleActorFactory.newBuilder()
         .setCredentialFactory(createCredentialFactory())
-        .setHttpClientFactory(SimpleHttpClientFactory.getInstance())
+        .setHttpClientFactory(HttpClientFactory.getInstance())
         .build();
   }
 
