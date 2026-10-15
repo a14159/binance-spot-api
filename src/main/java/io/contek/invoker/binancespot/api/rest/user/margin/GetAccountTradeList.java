@@ -7,6 +7,7 @@ import io.contek.invoker.commons.rest.RestContext;
 import io.contek.invoker.commons.rest.RestMethod;
 import io.contek.invoker.commons.rest.RestParams;
 
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -20,6 +21,8 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
   private String orderId;
   private long startTime;
   private long endTime;
+  private Long fromId;
+  private Integer limit;
 
   GetAccountTradeList(IActor actor, RestContext context) {
     super(actor, context);
@@ -45,6 +48,16 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
     return this;
   }
 
+  public GetAccountTradeList setFromId(@Nullable Long fromId) {
+    this.fromId = fromId;
+    return this;
+  }
+
+  public GetAccountTradeList setLimit(@Nullable Integer limit) {
+    this.limit = limit;
+    return this;
+  }
+
   @Override
   protected RestMethod getMethod() {
     return GET;
@@ -57,7 +70,7 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
 
   @Override
   protected String getEndpointPath() {
-    return " /sapi/v1/margin/myTrades";
+    return "/sapi/v1/margin/myTrades";
   }
 
   @Override
@@ -67,7 +80,7 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
     Objects.requireNonNull(symbol);
     builder.add("symbol", symbol);
 
-    if (orderId == null && (startTime == 0 || endTime == 0)) {
+    if (orderId == null && fromId == null && (startTime == 0 || endTime == 0)) {
       throw new IllegalArgumentException();
     }
     if (orderId != null)
@@ -76,6 +89,10 @@ public final class GetAccountTradeList extends UserRestRequest<GetAccountTradeLi
       builder.add("startTime", startTime);
     if (endTime != 0)
       builder.add("endTime", endTime);
+    if (fromId != null)
+      builder.add("fromId", fromId);
+    if (limit != null)
+      builder.add("limit", limit);
 
     builder.add("timestamp", getMillis());
 
