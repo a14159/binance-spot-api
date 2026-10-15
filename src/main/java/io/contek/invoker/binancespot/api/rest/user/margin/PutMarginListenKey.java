@@ -38,7 +38,7 @@ public final class PutMarginListenKey extends UserRestRequest<Response> {
 
   @Override
   protected String getEndpointPath() {
-    return " /sapi/v1/userDataStream";
+    return "/sapi/v1/userDataStream";
   }
 
   @Override
