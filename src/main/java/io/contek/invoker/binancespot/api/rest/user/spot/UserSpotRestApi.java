@@ -36,6 +36,10 @@ public final class UserSpotRestApi {
     return new PostOrder(actor, context);
   }
 
+  public PutOrderAmendKeepPriority putOrderAmendKeepPriority() {
+    return new PutOrderAmendKeepPriority(actor, context);
+  }
+
   public DeleteOrder deleteOrder() {
     return new DeleteOrder(actor, context);
   }
